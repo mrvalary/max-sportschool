@@ -30,5 +30,16 @@ function groupWord(n){const a=n%10,b=n%100;return a===1&&b!==11?'группа':a
 const sportRoot=document.getElementById('sports-list');if(sportRoot){sports.forEach(s=>{const card=document.createElement('article');card.className='sport-card';const note=s.note?'<span class="pill">ℹ️ '+s.note+'</span>':'';card.innerHTML='<div class="sport-card__icon">'+s.icon+'</div><div><h3>'+s.name+'</h3><div class="sport-meta">'+s.cities.map(c=>'<span class="pill">📍 '+c+'</span>').join('')+'<span class="pill pill--groups">'+s.groups+' '+groupWord(s.groups)+'</span>'+note+'</div></div>';sportRoot.appendChild(card);});}
 const faqRoot=document.getElementById('faq-list');if(faqRoot){faqs.forEach(([q,a],i)=>{const item=document.createElement('article');item.className='faq-item';item.innerHTML='<button class="faq-q" type="button" aria-expanded="false"><span><span class="faq-index">'+String(i+1).padStart(2,'0')+'</span>'+q+'</span><span class="faq-chevron">⌄</span></button><div class="faq-a">'+a+'</div>';faqRoot.appendChild(item);});}
 document.addEventListener('click',e=>{const nav=e.target.closest('[data-target]');if(nav){showScreen(nav.dataset.target);return;}const toggle=e.target.closest('.faq-q');if(toggle){const item=toggle.closest('.faq-item');const wasOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(el=>{el.classList.remove('open');el.querySelector('.faq-q')?.setAttribute('aria-expanded','false');});if(!wasOpen){item.classList.add('open');toggle.setAttribute('aria-expanded','true');}}});
+
+const appealButton=document.getElementById('appeal-open-button');
+if(appealButton){
+  appealButton.addEventListener('click',(event)=>{
+    if(typeof window.WebApp?.openLink === 'function'){
+      event.preventDefault();
+      window.WebApp.openLink(appealButton.href);
+    }
+    // Outside MAX, the standard anchor opens the form in a new tab.
+  });
+}
 window.showScreen=showScreen;
 })();
