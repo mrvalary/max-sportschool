@@ -15,6 +15,23 @@ const sports=[
 {name:'Пауэрлифтинг',icon:'🏋️',cities:['Бикин'],groups:2},
 {name:'Дартс',icon:'🎯',cities:['Комсомольск-на-Амуре'],groups:1}
 ];
+const sportDescriptions=[
+  "Занятия в бассейне с упражнениями в воде. Плавание помогает развивать координацию движений, выносливость и общую физическую подготовку.",
+  "Занятия с лошадьми включают элементы адаптивной верховой езды и иппотерапии. Работа с инструктором помогает тренировать равновесие, координацию и уверенность в движениях.",
+  "Командные занятия футболом, адаптированные для участников с церебральным параличом. Включают упражнения с мячом, отработку игровых действий и взаимодействие в команде.",
+  "Занятия футболом для спортсменов с интеллектуальными нарушениями. Программа сочетает упражнения с мячом, развитие координации и командную игру.",
+  "Футзал — разновидность футбола в спортивном зале. На занятиях развивают владение мячом, скорость реакции и умение действовать вместе с командой.",
+  "Ритмика сочетает движения под музыку, упражнения на координацию и чувство ритма. Нагрузка и сложность движений подбираются с учётом возможностей занимающихся.",
+  "Дзюдо — спортивное единоборство с изучением техники, равновесия и безопасных способов выполнения упражнений. Занятия развивают координацию и самоконтроль.",
+  "Самбо — вид спортивного единоборства, в котором изучают движения, приёмы и правила взаимодействия с партнёром. Упражнения помогают развивать силу и координацию.",
+  "Хоккей — командный вид спорта с упражнениями на владение клюшкой, перемещение и взаимодействие с партнёрами. Формат тренировок определяется возможностями группы.",
+  "Волейбол — командная игра с передачами мяча, упражнениями на реакцию, координацию и взаимодействие между участниками.",
+  "Общая физическая подготовка включает упражнения на силу, подвижность, гибкость, равновесие и выносливость. Содержание занятий подбирается с учётом возможностей группы.",
+  "Настольный теннис — игра с ракеткой и мячом, развивающая внимание, точность движений, реакцию и координацию рук и глаз.",
+  "Пауэрлифтинг — силовой вид спорта. На занятиях осваивают технику силовых упражнений и работу с нагрузкой под контролем специалиста.",
+  "Дартс — метание дротиков в мишень. Занятия требуют концентрации, точности и контроля движений, помогают тренировать внимание."
+];
+
 const faqs=[
 ['Где находится организация?','Фактический адрес школы: г. Хабаровск, ул. Муравьёва-Амурского, 4.'],
 ['Кто может заниматься адаптивным спортом?','В физкультурно-оздоровительных группах школы занимаются инвалиды и лица с ограниченными возможностями здоровья, включая детей-инвалидов. Подходящую дисциплину и условия участия можно уточнить у специалистов школы.'],
@@ -48,9 +65,51 @@ function showScreen(id){
   requestAnimationFrame(()=>observeReveals(target));
 }
 function groupWord(n){const a=n%10,b=n%100;return a===1&&b!==11?'группа':a>=2&&a<=4&&(b<12||b>14)?'группы':'групп';}
-const sportRoot=document.getElementById('sports-list');if(sportRoot){sports.forEach(s=>{const card=document.createElement('article');card.className='sport-card';const note=s.note?'<span class="pill">ℹ️ '+s.note+'</span>':'';card.innerHTML='<div class="sport-card__icon">'+s.icon+'</div><div><h3>'+s.name+'</h3><div class="sport-meta">'+s.cities.map(c=>'<span class="pill">📍 '+c+'</span>').join('')+'<span class="pill pill--groups">'+s.groups+' '+groupWord(s.groups)+'</span>'+note+'</div></div>';sportRoot.appendChild(card);});}
+const sportRoot=document.getElementById('sports-list');
+if(sportRoot){
+  sports.forEach((s,i)=>{
+    const card=document.createElement('article');
+    card.className='sport-card sport-card--expandable';
+    const panelId='sport-details-'+i;
+    const note=s.note?'<span class="pill">ℹ️ '+s.note+'</span>':'';
+    card.innerHTML=
+      '<button class="sport-card__toggle" type="button" aria-expanded="false" aria-controls="'+panelId+'">'+
+        '<span class="sport-card__icon" aria-hidden="true">'+s.icon+'</span>'+
+        '<span class="sport-card__summary"><span class="sport-card__name">'+s.name+'</span>'+
+          '<span class="sport-meta">'+s.cities.map(city=>'<span class="pill">📍 '+city+'</span>').join('')+
+          '<span class="pill pill--groups">'+s.groups+' '+groupWord(s.groups)+'</span>'+note+'</span>'+
+        '</span><span class="sport-card__chevron" aria-hidden="true">⌄</span>'+
+      '</button>'+
+      '<div class="sport-card__panel" id="'+panelId+'" role="region" aria-label="Подробнее: '+s.name+'" aria-hidden="true">'+
+        '<div class="sport-card__panel-inner">'+
+          '<p>'+sportDescriptions[i]+'</p>'+
+          '<div class="sport-card__detail-row"><span>📍 Города занятий</span><strong>'+s.cities.join(', ')+'</strong></div>'+
+          '<div class="sport-card__detail-row"><span>👥 Физкультурно-оздоровительные группы</span><strong>'+s.groups+'</strong></div>'+
+          '<p class="sport-card__disclaimer">Расписание, условия участия и доступность мест уточняйте в школе.</p>'+
+          '<button class="sport-card__contact" type="button" data-target="contact-screen">Связаться с администрацией →</button>'+
+        '</div>'+
+      '</div>';
+    sportRoot.appendChild(card);
+  });
+}
 const faqRoot=document.getElementById('faq-list');if(faqRoot){faqs.forEach(([q,a],i)=>{const item=document.createElement('article');item.className='faq-item';item.innerHTML='<button class="faq-q" type="button" aria-expanded="false"><span><span class="faq-index">'+String(i+1).padStart(2,'0')+'</span>'+q+'</span><span class="faq-chevron">⌄</span></button><div class="faq-a"><div class="faq-a__inner">'+a+'</div></div>';faqRoot.appendChild(item);});}
-document.addEventListener('click',e=>{const nav=e.target.closest('[data-target]');if(nav){showScreen(nav.dataset.target);return;}const toggle=e.target.closest('.faq-q');if(toggle){const item=toggle.closest('.faq-item');const wasOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(el=>{el.classList.remove('open');el.querySelector('.faq-q')?.setAttribute('aria-expanded','false');});if(!wasOpen){item.classList.add('open');toggle.setAttribute('aria-expanded','true');}}});
+document.addEventListener('click',e=>{const nav=e.target.closest('[data-target]');if(nav){showScreen(nav.dataset.target);return;}const sportToggle=e.target.closest('.sport-card__toggle');
+if(sportToggle){
+  const card=sportToggle.closest('.sport-card');
+  const opening=!card.classList.contains('open');
+  sportRoot?.querySelectorAll('.sport-card.open').forEach(other=>{
+    other.classList.remove('open');
+    other.querySelector('.sport-card__toggle')?.setAttribute('aria-expanded','false');
+    other.querySelector('.sport-card__panel')?.setAttribute('aria-hidden','true');
+  });
+  if(opening){
+    card.classList.add('open');
+    sportToggle.setAttribute('aria-expanded','true');
+    card.querySelector('.sport-card__panel')?.setAttribute('aria-hidden','false');
+  }
+  return;
+}
+const toggle=e.target.closest('.faq-q');if(toggle){const item=toggle.closest('.faq-item');const wasOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(el=>{el.classList.remove('open');el.querySelector('.faq-q')?.setAttribute('aria-expanded','false');});if(!wasOpen){item.classList.add('open');toggle.setAttribute('aria-expanded','true');}}});
 
 const appealButton=document.getElementById('appeal-open-button');
 if(appealButton){
