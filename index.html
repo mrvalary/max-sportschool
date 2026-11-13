@@ -72,6 +72,14 @@
           </span>
           <span class="menu-card__arrow">→</span>
         </button>
+        <button class="menu-card menu-card--vacancies" data-target="jobs-screen">
+          <span class="menu-card__icon">💼</span>
+          <span class="menu-card__body">
+            <b>Вакансии</b>
+            <small>Работа в нашей школе · актуальные предложения</small>
+          </span>
+          <span class="menu-card__arrow">→</span>
+        </button>
       </section>
 
       <section class="section-block">
@@ -210,6 +218,66 @@
         <div class="details-row"><span>📍</span><span><b>ул. Муравьёва-Амурского, 4</b><small>офис 217, Хабаровск</small></span></div>
       </article>
 
+      <button class="secondary-btn" data-target="main-screen">В главное меню</button>
+    </section>
+
+    <section id="jobs-screen" class="screen" aria-labelledby="jobs-title">
+      <header class="screen-header">
+        <button class="back-btn" data-target="main-screen">← Назад</button>
+        <p class="eyebrow">Карьера в школе</p>
+        <h2 id="jobs-title">Вакансии</h2>
+        <p class="screen-header__text">Присоединяйтесь к команде Хабаровской краевой спортивно-адаптивной школы.</p>
+      </header>
+
+      <div class="jobs-intro">
+        <span class="jobs-intro__icon" aria-hidden="true">🤝</span>
+        <div>
+          <b>Работа, которая имеет значение</b>
+          <p>Помогаем развивать адаптивный спорт и создавать новые возможности для наших спортсменов.</p>
+        </div>
+      </div>
+
+      <div class="jobs-list">
+        <article class="job-card">
+          <div class="job-card__top"><span class="job-card__icon">🏅</span><span class="job-card__count">5 мест</span></div>
+          <h3>Инструктор-методист</h3>
+          <p class="job-card__subtitle">Организация и методическое сопровождение физкультурно-спортивной деятельности</p>
+          <div class="job-card__footer"><div><small>Заработная плата</small><strong>68 000 ₽</strong></div><a href="mailto:4212304960@mail.ru?subject=%D0%A0%D0%B5%D0%B7%D1%8E%D0%BC%D0%B5%20%E2%80%94%20%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80-%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D1%81%D1%82" class="job-card__action">Откликнуться ↗</a></div>
+        </article>
+        <article class="job-card">
+          <div class="job-card__top"><span class="job-card__icon">🛠️</span><span class="job-card__count">1 позиция</span></div>
+          <h3>Техник по эксплуатации зданий</h3>
+          <p class="job-card__subtitle">Обеспечение надлежащего технического состояния объектов учреждения</p>
+          <div class="job-card__footer"><div><small>Заработная плата</small><strong>68 000 ₽</strong></div><a href="mailto:4212304960@mail.ru?subject=%D0%A0%D0%B5%D0%B7%D1%8E%D0%BC%D0%B5%20%E2%80%94%20%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA" class="job-card__action">Откликнуться ↗</a></div>
+        </article>
+        <article class="job-card">
+          <div class="job-card__top"><span class="job-card__icon">🐎</span><span class="job-card__count">КСК «Мустанг»</span></div>
+          <h3>Конюх</h3>
+          <p class="job-card__subtitle">Работа в конно-спортивном клубе «Мустанг»</p>
+          <div class="job-card__chips"><span>🕒 Сутки через трое</span></div>
+          <div class="job-card__footer"><div><small>Заработная плата</small><strong>38 000 ₽</strong></div><a href="mailto:4212304960@mail.ru?subject=%D0%A0%D0%B5%D0%B7%D1%8E%D0%BC%D0%B5%20%E2%80%94%20%D0%BA%D0%BE%D0%BD%D1%8E%D1%85%20%D0%9A%D0%A1%D0%9A%20%D0%9C%D1%83%D1%81%D1%82%D0%B0%D0%BD%D0%B3" class="job-card__action">Откликнуться ↗</a></div>
+        </article>
+      </div>
+
+      <div class="job-details">
+        <h3>Что мы предлагаем</h3>
+        <ul>
+          <li>Официальное трудоустройство и полный соцпакет</li>
+          <li>Стабильную заработную плату и ежеквартальные премии по результатам работы</li>
+          <li>График 5/2 с 09:00 до 18:00 для соответствующих должностей</li>
+          <li>Возможность получения льготной ипотеки</li>
+          <li>Медицинское обслуживание в Клиническом центре восстановительной медицины и реабилитации</li>
+        </ul>
+        <h3>Кого мы ищем</h3>
+        <p>Важны профильное образование, коммуникабельность и умение работать в команде. Рассматриваются кандидаты с небольшим опытом. Точные требования уточняйте в отделе кадров.</p>
+      </div>
+
+      <div class="jobs-contact">
+        <div class="jobs-contact__heading"><span>📩</span><div><b>Связаться с отделом кадров</b><small>Уточнить актуальность вакансии и отправить резюме</small></div></div>
+        <a class="jobs-contact__button" href="tel:+74212304960">Позвонить: +7 (4212) 30-49-60</a>
+        <a class="jobs-contact__button jobs-contact__button--light" href="mailto:4212304960@mail.ru?subject=%D0%A0%D0%B5%D0%B7%D1%8E%D0%BC%D0%B5%20%D0%B2%20%D0%A5%D0%9A%D0%A1%D0%90%D0%A8%D0%9F%D0%A1%D0%A0">Отправить резюме на почту</a>
+      </div>
+      <p class="jobs-note">Зарплаты и количество мест приведены по опубликованным данным школы и могут меняться. <a href="https://kski.ru/content/bez-kategorii/vakansii/" target="_blank" rel="noopener">Проверить на официальном сайте ↗</a></p>
       <button class="secondary-btn" data-target="main-screen">В главное меню</button>
     </section>
   </main>
