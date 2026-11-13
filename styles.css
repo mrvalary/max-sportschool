@@ -43,3 +43,23 @@
 .jobs-note{color:var(--muted);font-size:12px;line-height:1.55;margin:13px 3px 0}.jobs-note a{color:var(--primary);font-weight:700}
 @media(prefers-color-scheme:dark){.menu-card--vacancies{background:linear-gradient(120deg,#1d3850,#1b222b)}.menu-card--vacancies .menu-card__icon,.job-card__icon{background:#263f55}.job-card__count{background:#223c55;color:#a9d6ff}.job-card__chips span{background:#243242;color:#c0d0de}.job-card__action{background:#22466d;color:#b9ddff}}
 @media(max-width:380px){.job-card__footer{align-items:start;flex-direction:column}.job-card__action{width:100%;text-align:center}}
+
+/* Hero artwork refresh — full illustration visible, readable content underneath */
+.hero-card{min-height:0;background:#eaf8fc;border:1px solid #d9edf7}
+.hero-card__image{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;object-position:center center;background:#f4fcff}
+.hero-card__overlay{display:none}
+.hero-card__content{position:relative;display:block;min-height:0;padding:22px 20px 23px;color:#173653;background:#f4fcff}
+.hero-card__top{position:absolute;top:-1px;left:16px;right:16px;transform:translateY(calc(-100% - 9px));pointer-events:none}
+.hero-card__logo{width:48px;height:48px;border-radius:14px}
+.hero-card .badge{background:rgba(17,67,114,.78);backdrop-filter:blur(10px)}
+.hero-card__bottom{max-width:none}
+.hero-card .eyebrow--light{color:#1672b8}
+.hero-card h1{color:#10395c;font-size:clamp(32px,7.5vw,46px);letter-spacing:-1.2px;line-height:1.08;margin:5px 0 10px}
+.hero-card__text{color:#496780;font-size:14px;line-height:1.5;margin-bottom:17px}
+.hero-card .primary-btn{background:linear-gradient(110deg,#0c67d8,#129ad9);color:#fff}
+.about-cover{min-height:0;background:#effaff}
+.about-cover img{height:auto;aspect-ratio:4/3;object-fit:contain;background:#f4fcff}
+.about-cover__overlay{background:linear-gradient(transparent 42%,rgba(8,42,76,.78))}
+.about-cover__content{bottom:12px}
+@media(max-width:480px){.hero-card,.hero-card__content{min-height:0}.hero-card__content{padding:18px 18px 20px}.hero-card__top{left:13px;right:13px}.hero-card__logo{width:42px;height:42px}.hero-card h1{font-size:clamp(29px,8vw,38px)}}
+@media(prefers-color-scheme:dark){.hero-card{border-color:#31576a;background:#162f3f}.hero-card__image{background:#effaff}.hero-card__content{background:#192e3a;color:#e8f5ff}.hero-card .eyebrow--light{color:#72d1ff}.hero-card h1{color:#f3faff}.hero-card__text{color:#bdd4e5}.about-cover{background:#192e3a}}
