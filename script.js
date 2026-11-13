@@ -25,7 +25,28 @@ const faqs=[
 ['Платные или бесплатные занятия?','Условия по конкретной программе лучше уточнить у администрации, поскольку они могут отличаться.'],
 ['Как связаться с администрацией?','Основной телефон: +7 (4212) 37-34-04. Ресурсный центр: +7 (999) 080-48-52. E-mail: 4212304960@mail.ru.']
 ];
-function showScreen(id){const target=document.getElementById(id);if(!target)return;document.querySelectorAll('.screen').forEach(el=>el.classList.remove('active'));target.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+const reducedMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+let revealObserver;
+function observeReveals(root=document){
+  const elements=root.querySelectorAll('.stat-card,.menu-card,.gallery-card,.sport-card,.faq-item,.contact-card,.department-card,.job-card,.section-block,.info-banner,.appeal-box');
+  if(!('IntersectionObserver' in window)||reducedMotion){elements.forEach(el=>el.classList.add('revealed'));return;}
+  if(!revealObserver){revealObserver=new IntersectionObserver(entries=>{
+    for(const entry of entries){if(entry.isIntersecting){entry.target.classList.add('revealed');revealObserver.unobserve(entry.target);}}
+  },{threshold:0.08,rootMargin:'0px 0px 25px 0px'});}
+  elements.forEach(el=>{if(!el.classList.contains('revealed')){el.classList.add('reveal-ready');revealObserver.observe(el);}});
+}
+function showScreen(id){
+  const target=document.getElementById(id);if(!target)return;
+  document.querySelectorAll('.screen').forEach(el=>el.classList.remove('active'));
+  target.classList.add('active');
+  document.querySelectorAll('.bottom-nav button').forEach(button=>{
+    const active=button.dataset.target===id;
+    button.classList.toggle('is-active',active);
+    if(active)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');
+  });
+  window.scrollTo({top:0,behavior:reducedMotion?'instant':'smooth'});
+  requestAnimationFrame(()=>observeReveals(target));
+}
 function groupWord(n){const a=n%10,b=n%100;return a===1&&b!==11?'группа':a>=2&&a<=4&&(b<12||b>14)?'группы':'групп';}
 const sportRoot=document.getElementById('sports-list');if(sportRoot){sports.forEach(s=>{const card=document.createElement('article');card.className='sport-card';const note=s.note?'<span class="pill">ℹ️ '+s.note+'</span>':'';card.innerHTML='<div class="sport-card__icon">'+s.icon+'</div><div><h3>'+s.name+'</h3><div class="sport-meta">'+s.cities.map(c=>'<span class="pill">📍 '+c+'</span>').join('')+'<span class="pill pill--groups">'+s.groups+' '+groupWord(s.groups)+'</span>'+note+'</div></div>';sportRoot.appendChild(card);});}
 const faqRoot=document.getElementById('faq-list');if(faqRoot){faqs.forEach(([q,a],i)=>{const item=document.createElement('article');item.className='faq-item';item.innerHTML='<button class="faq-q" type="button" aria-expanded="false"><span><span class="faq-index">'+String(i+1).padStart(2,'0')+'</span>'+q+'</span><span class="faq-chevron">⌄</span></button><div class="faq-a">'+a+'</div>';faqRoot.appendChild(item);});}
@@ -41,5 +62,11 @@ if(appealButton){
     // Outside MAX, the standard anchor opens the form in a new tab.
   });
 }
+observeReveals(document.getElementById('main-screen'));
+document.querySelectorAll('.bottom-nav button').forEach(button=>{
+  const active=button.dataset.target==='main-screen';
+  button.classList.toggle('is-active',active);
+  if(active)button.setAttribute('aria-current','page');
+});
 window.showScreen=showScreen;
 })();
