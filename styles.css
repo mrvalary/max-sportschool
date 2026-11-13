@@ -63,3 +63,18 @@
 .about-cover__content{bottom:12px}
 @media(max-width:480px){.hero-card,.hero-card__content{min-height:0}.hero-card__content{padding:18px 18px 20px}.hero-card__top{left:13px;right:13px}.hero-card__logo{width:42px;height:42px}.hero-card h1{font-size:clamp(29px,8vw,38px)}}
 @media(prefers-color-scheme:dark){.hero-card{border-color:#31576a;background:#162f3f}.hero-card__image{background:#effaff}.hero-card__content{background:#192e3a;color:#e8f5ff}.hero-card .eyebrow--light{color:#72d1ff}.hero-card h1{color:#f3faff}.hero-card__text{color:#bdd4e5}.about-cover{background:#192e3a}}
+
+/* Contact departments */
+.contact-section-title{margin:23px 2px 12px}
+.contact-section-title h3{margin:3px 0 5px;font-size:21px;line-height:1.18;letter-spacing:-.3px}
+.contact-section-title>p:last-child{margin:0;color:var(--muted);font-size:13px}
+.department-list{display:grid;gap:10px}
+.department-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:var(--shadow-soft)}
+.department-card__heading{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:11px}
+.department-card__icon{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:#eaf3ff;font-size:21px;flex-shrink:0}
+.department-card__room{padding:7px 10px;border-radius:999px;background:#edf5ff;color:#0a5bb6;font-size:12px;font-weight:800;text-align:right}
+.department-card h4{font-size:15px;line-height:1.38;margin:0 0 12px;overflow-wrap:anywhere}
+.department-card__address{font-size:13px;line-height:1.45;color:var(--muted);margin:-3px 0 12px}
+.department-card__contacts{display:flex;flex-wrap:wrap;align-items:center;gap:8px;border-top:1px solid var(--border);padding-top:12px}
+.department-card__contacts a{display:inline-flex;align-items:center;text-decoration:none;color:var(--primary);font-size:13px;font-weight:750;background:rgba(22,129,222,.085);padding:9px 11px;border-radius:10px;overflow-wrap:anywhere}
+@media(prefers-color-scheme:dark){.department-card__icon{background:#213547}.department-card__room{background:#203952;color:#b6d9ff}.department-card__contacts a{background:#20364a;color:#a9d4ff}}
