@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b5ed7" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Спортивно-адаптивная школа</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section id="main-screen" class="screen active" aria-labelledby="main-title">
+      <div class="hero">
+        <div class="hero-badge">MAX Mini App</div>
+        <h1 id="main-title">Спортивно-адаптивная школа</h1>
+        <p>Информация о направлениях, ответы на частые вопросы и связь с администрацией.</p>
+      </div>
+
+      <div class="menu-grid">
+        <button class="menu-card" data-target="sports-screen">
+          <span class="menu-icon">🏅</span>
+          <span><b>Спортивные направления</b><small>15 направлений адаптивного спорта</small></span>
+        </button>
+        <button class="menu-card" data-target="faq-screen">
+          <span class="menu-icon">❓</span>
+          <span><b>Часто задаваемые вопросы</b><small>Запись, расписание, документы</small></span>
+        </button>
+        <button class="menu-card" data-target="contact-screen">
+          <span class="menu-icon">💬</span>
+          <span><b>Связь с администрацией</b><small>Телефоны, почта и обращение</small></span>
+        </button>
+        <button class="menu-card" data-target="about-screen">
+          <span class="menu-icon">🏢</span>
+          <span><b>Об организации</b><small>Основная информация и график работы</small></span>
+        </button>
+      </div>
+    </section>
+
+    <section id="sports-screen" class="screen" aria-labelledby="sports-title">
+      <button class="back" data-target="main-screen">← Назад</button>
+      <h2 id="sports-title">Спортивные направления</h2>
+      <p class="lead">В школе представлены следующие направления.</p>
+      <div id="sports-list" class="cards-list"></div>
+      <button class="secondary-btn" data-target="main-screen">В главное меню</button>
+    </section>
+
+    <section id="faq-screen" class="screen" aria-labelledby="faq-title">
+      <button class="back" data-target="main-screen">← Назад</button>
+      <h2 id="faq-title">Часто задаваемые вопросы</h2>
+      <div id="faq-list" class="faq-list"></div>
+      <button class="secondary-btn" data-target="main-screen">В главное меню</button>
+    </section>
+
+    <section id="contact-screen" class="screen" aria-labelledby="contact-title">
+      <button class="back" data-target="main-screen">← Назад</button>
+      <h2 id="contact-title">Связь с администрацией</h2>
+      <div class="info-card">
+        <a class="contact-row" href="tel:+74212373404"><span>☎️</span><span><b>+7 (4212) 37-34-04</b><small>Основной телефон</small></span></a>
+        <a class="contact-row" href="tel:+74212304960"><span>📞</span><span><b>+7 (4212) 30-49-60</b><small>Дополнительный телефон</small></span></a>
+        <a class="contact-row" href="mailto:4212304960@mail.ru"><span>✉️</span><span><b>4212304960@mail.ru</b><small>Электронная почта</small></span></a>
+      </div>
+
+      <div class="info-card form-card">
+        <h3>Оставить обращение</h3>
+        <p>Имя, телефон и суть обращения будут переданы администрации через существующую форму Mavibot.</p>
+        <a id="appeal-link" class="primary-btn" href="https://mavibot.site/st/c112/" target="_self" rel="noopener">Перейти к форме обращения</a>
+        <small class="muted">На первом этапе сохраняем уже проверенную CRM-цепочку Mavibot.</small>
+      </div>
+      <button class="secondary-btn" data-target="main-screen">В главное меню</button>
+    </section>
+
+    <section id="about-screen" class="screen" aria-labelledby="about-title">
+      <button class="back" data-target="main-screen">← Назад</button>
+      <h2 id="about-title">Об организации</h2>
+      <div class="info-card prose">
+        <p><b>КГАУ ДО «Хабаровская краевая спортивно-адаптивная школа паралимпийского и сурдлимпийского резерва»</b></p>
+        <p>Организация предоставляет информацию о направлениях адаптивного спорта и помогает посетителям связаться с администрацией.</p>
+        <hr />
+        <p><b>График работы</b><br>Понедельник — пятница: 09:00–18:00<br>Обед: 13:00–14:00</p>
+      </div>
+      <button class="secondary-btn" data-target="main-screen">В главное меню</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
