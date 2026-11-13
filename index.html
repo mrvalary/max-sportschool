@@ -3,74 +3,96 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b5ed7" />
+  <meta name="theme-color" content="#0f68d8" />
   <meta name="color-scheme" content="light dark" />
-  <meta name="description" content="Мини-приложение Хабаровской краевой спортивно-адаптивной школы" />
+  <meta name="description" content="Мини-приложение Хабаровской краевой спортивно-адаптивной школы для MAX" />
   <title>ХКСАШПСР — MAX Mini App</title>
   <link rel="preconnect" href="https://kski.ru" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="app-bg"></div>
+  <div class="bg-orb bg-orb--1"></div>
+  <div class="bg-orb bg-orb--2"></div>
+
   <main class="app-shell">
     <section id="main-screen" class="screen active" aria-labelledby="main-title">
-      <article class="hero">
-        <img class="hero-photo" src="https://kski.ru/media/main_slider/2026/07/08/00.jpg" alt="Хабаровская краевая спортивно-адаптивная школа" />
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <div class="brand-row">
-            <img class="brand-logo" src="https://kski.ru/media/2024/04/01/01042024-2.png" alt="Логотип школы" />
-            <span class="hero-badge">MAX Mini App</span>
+      <article class="hero-card">
+        <img class="hero-card__image" src="https://kski.ru/media/main_slider/2026/07/08/00.jpg" alt="Хабаровская краевая спортивно-адаптивная школа" />
+        <div class="hero-card__overlay"></div>
+        <div class="hero-card__content">
+          <div class="hero-card__top">
+            <img class="hero-card__logo" src="https://kski.ru/media/2024/04/01/01042024-2.png" alt="Логотип школы" />
+            <span class="badge">MAX Mini App</span>
           </div>
-          <h1 id="main-title">Спорт без барьеров</h1>
-          <p>Хабаровская краевая спортивно-адаптивная школа паралимпийского и сурдлимпийского резерва</p>
-          <button class="hero-cta" data-target="sports-screen">Выбрать направление →</button>
+          <div class="hero-card__bottom">
+            <p class="eyebrow eyebrow--light">КГАУ ДО «ХКСАШПСР»</p>
+            <h1 id="main-title">Спорт без барьеров</h1>
+            <p class="hero-card__text">Информация о спортивных направлениях, частые вопросы, контакты администрации и удобная форма обращения.</p>
+            <button class="primary-btn" data-target="sports-screen">Смотреть направления</button>
+          </div>
         </div>
       </article>
 
-      <div class="stats">
-        <div><b>14</b><span>дисциплин</span></div>
-        <div><b>40</b><span>групп</span></div>
-        <div><b>3</b><span>территории</span></div>
+      <div class="stats-row">
+        <article class="stat-card"><strong>14</strong><span>дисциплин</span></article>
+        <article class="stat-card"><strong>40</strong><span>групп</span></article>
+        <article class="stat-card"><strong>3</strong><span>территории</span></article>
       </div>
 
-      <section class="quick-grid" aria-label="Разделы">
-        <button class="feature-card feature-card--sport" data-target="sports-screen">
-          <span class="feature-icon">🏅</span>
-          <span><b>Спортивные направления</b><small>Дисциплины, города и количество групп</small></span>
-          <span class="arrow">→</span>
+      <section class="menu-grid" aria-label="Главное меню">
+        <button class="menu-card menu-card--accent" data-target="sports-screen">
+          <span class="menu-card__icon">🏅</span>
+          <span class="menu-card__body">
+            <b>Спортивные направления</b>
+            <small>Список дисциплин, города и группы</small>
+          </span>
+          <span class="menu-card__arrow">→</span>
         </button>
-        <button class="feature-card" data-target="faq-screen">
-          <span class="feature-icon">❓</span>
-          <span><b>Частые вопросы</b><small>Запись, расписание и документы</small></span>
-          <span class="arrow">→</span>
+        <button class="menu-card" data-target="faq-screen">
+          <span class="menu-card__icon">❓</span>
+          <span class="menu-card__body">
+            <b>Частые вопросы</b>
+            <small>Запись, расписание и документы</small>
+          </span>
+          <span class="menu-card__arrow">→</span>
         </button>
-        <button class="feature-card" data-target="contact-screen">
-          <span class="feature-icon">💬</span>
-          <span><b>Связь с администрацией</b><small>Телефоны, почта и обращение</small></span>
-          <span class="arrow">→</span>
+        <button class="menu-card" data-target="contact-screen">
+          <span class="menu-card__icon">☎️</span>
+          <span class="menu-card__body">
+            <b>Связь с администрацией</b>
+            <small>Телефоны, почта и обращение</small>
+          </span>
+          <span class="menu-card__arrow">→</span>
         </button>
-        <button class="feature-card" data-target="about-screen">
-          <span class="feature-icon">🏢</span>
-          <span><b>Об организации</b><small>Цели школы и Ресурсного центра</small></span>
-          <span class="arrow">→</span>
+        <button class="menu-card" data-target="about-screen">
+          <span class="menu-card__icon">🏢</span>
+          <span class="menu-card__body">
+            <b>Об организации</b>
+            <small>Коротко о школе и ресурсном центре</small>
+          </span>
+          <span class="menu-card__arrow">→</span>
         </button>
       </section>
 
-      <section class="photo-strip">
-        <div class="section-head"><div><span class="eyebrow">Атмосфера</span><h2>Адаптивный спорт в действии</h2></div></div>
-        <div class="photo-grid">
-          <figure class="photo-card photo-card--wide">
+      <section class="section-block">
+        <div class="section-title">
+          <div>
+            <p class="eyebrow">Фотогалерея</p>
+            <h2>Жизнь школы</h2>
+          </div>
+        </div>
+        <div class="gallery-grid">
+          <figure class="gallery-card gallery-card--large">
             <img src="https://kski.ru/media/news/2026/07/16/00.jpg" alt="Спортивное мероприятие школы" />
-            <figcaption>Соревнования и спортивные события</figcaption>
+            <figcaption>Спортивные мероприятия и соревнования</figcaption>
           </figure>
-          <figure class="photo-card">
+          <figure class="gallery-card">
             <img src="https://kski.ru/media/photologue/photos/cache/2025-12-19_11_mediumphoto.jpg" alt="Адаптивная верховая езда" />
             <figcaption>Адаптивная верховая езда</figcaption>
           </figure>
-          <figure class="photo-card">
-            <img src="https://kski.ru/media/news/2026/06/10/18d9e8e8-9b42-477c-9235-0b62c3f99c98.jpg" alt="Спортивное мероприятие" />
-            <figcaption>Командный спорт</figcaption>
+          <figure class="gallery-card">
+            <img src="https://kski.ru/media/news/2026/06/10/18d9e8e8-9b42-477c-9235-0b62c3f99c98.jpg" alt="Командные занятия" />
+            <figcaption>Командные занятия</figcaption>
           </figure>
         </div>
       </section>
@@ -80,53 +102,72 @@
 
     <section id="sports-screen" class="screen" aria-labelledby="sports-title">
       <header class="screen-header">
-        <button class="back" data-target="main-screen">← Назад</button>
-        <span class="eyebrow">Ресурсный центр</span>
+        <button class="back-btn" data-target="main-screen">← Назад</button>
+        <p class="eyebrow">Ресурсный центр</p>
         <h2 id="sports-title">Спортивные направления</h2>
-        <p>Актуальный список физкультурно-оздоровительных групп с официального сайта школы.</p>
+        <p class="screen-header__text">Физкультурно-оздоровительные группы по официальным данным школы.</p>
       </header>
-      <div id="sports-list" class="sports-grid"></div>
-      <div class="callout">
-        <span>📍</span>
-        <div><b>Занятия проходят в трёх территориях края</b><p>Хабаровск, Комсомольск-на-Амуре и Бикин.</p></div>
+
+      <div id="sports-list" class="sports-list"></div>
+
+      <div class="info-banner">
+        <span class="info-banner__icon">📍</span>
+        <div>
+          <b>Территории занятий</b>
+          <p>Хабаровск, Комсомольск-на-Амуре и Бикин.</p>
+        </div>
       </div>
+
       <button class="secondary-btn" data-target="main-screen">В главное меню</button>
     </section>
 
     <section id="faq-screen" class="screen" aria-labelledby="faq-title">
       <header class="screen-header">
-        <button class="back" data-target="main-screen">← Назад</button>
-        <span class="eyebrow">Помощь</span>
+        <button class="back-btn" data-target="main-screen">← Назад</button>
+        <p class="eyebrow">FAQ</p>
         <h2 id="faq-title">Часто задаваемые вопросы</h2>
-        <p>Короткие ответы на основные вопросы посетителей.</p>
+        <p class="screen-header__text">Быстрые ответы для посетителей и родителей.</p>
       </header>
+
       <div id="faq-list" class="faq-list"></div>
+
       <button class="secondary-btn" data-target="main-screen">В главное меню</button>
     </section>
 
     <section id="contact-screen" class="screen" aria-labelledby="contact-title">
       <header class="screen-header">
-        <button class="back" data-target="main-screen">← Назад</button>
-        <span class="eyebrow">Контакты</span>
+        <button class="back-btn" data-target="main-screen">← Назад</button>
+        <p class="eyebrow">Контакты</p>
         <h2 id="contact-title">Связь с администрацией</h2>
-        <p>Выберите удобный способ связи или оставьте обращение.</p>
+        <p class="screen-header__text">Можно позвонить, написать или оставить обращение через форму.</p>
       </header>
 
-      <div class="contact-grid">
-        <a class="contact-card" href="tel:+74212373404"><span>☎️</span><div><small>Основной телефон</small><b>+7 (4212) 37-34-04</b></div></a>
-        <a class="contact-card" href="tel:+79990804852"><span>📱</span><div><small>Ресурсный центр</small><b>+7 (999) 080-48-52</b></div></a>
-        <a class="contact-card" href="mailto:4212304960@mail.ru"><span>✉️</span><div><small>Электронная почта</small><b>4212304960@mail.ru</b></div></a>
-        <div class="contact-card"><span>📍</span><div><small>Ресурсный центр</small><b>Хабаровск, ул. Муравьёва-Амурского, 4, оф. 217</b></div></div>
+      <div class="contact-list">
+        <a class="contact-card" href="tel:+74212373404">
+          <span class="contact-card__icon">☎️</span>
+          <span class="contact-card__body"><small>Основной телефон</small><b>+7 (4212) 37-34-04</b></span>
+        </a>
+        <a class="contact-card" href="tel:+79990804852">
+          <span class="contact-card__icon">📱</span>
+          <span class="contact-card__body"><small>Ресурсный центр</small><b>+7 (999) 080-48-52</b></span>
+        </a>
+        <a class="contact-card" href="mailto:4212304960@mail.ru">
+          <span class="contact-card__icon">✉️</span>
+          <span class="contact-card__body"><small>Электронная почта</small><b>4212304960@mail.ru</b></span>
+        </a>
+        <div class="contact-card">
+          <span class="contact-card__icon">📍</span>
+          <span class="contact-card__body"><small>Ресурсный центр</small><b>г. Хабаровск, ул. Муравьёва-Амурского, 4, оф. 217</b></span>
+        </div>
       </div>
 
-      <article class="appeal-card">
-        <div class="appeal-icon">✉️</div>
-        <div>
-          <span class="eyebrow">Обратная связь</span>
+      <article class="appeal-box">
+        <div class="appeal-box__text">
+          <p class="eyebrow eyebrow--light">Обратная связь</p>
           <h3>Оставить обращение</h3>
           <p>Имя, телефон и суть обращения будут переданы администрации через действующую форму Mavibot.</p>
         </div>
-        <a class="primary-btn" href="https://mavibot.site/st/c112/" target="_self" rel="noopener">Открыть форму</a>
+        <a class="primary-btn primary-btn--light" href="https://mavibot.site/st/c112/" target="_self" rel="noopener">Открыть форму обращения</a>
         <a class="privacy-link" href="https://kski.ru/content/bez-kategorii/politika-konfidencialnosti/" target="_blank" rel="noopener">Политика конфиденциальности ↗</a>
       </article>
 
@@ -135,27 +176,39 @@
 
     <section id="about-screen" class="screen" aria-labelledby="about-title">
       <header class="screen-header">
-        <button class="back" data-target="main-screen">← Назад</button>
-        <span class="eyebrow">О школе</span>
+        <button class="back-btn" data-target="main-screen">← Назад</button>
+        <p class="eyebrow">О школе</p>
         <h2 id="about-title">Об организации</h2>
       </header>
 
-      <article class="about-visual">
+      <article class="about-cover">
         <img src="https://kski.ru/media/main_slider/2026/07/08/00.jpg" alt="Хабаровская краевая спортивно-адаптивная школа" />
-        <div><span>КГАУ ДО</span><b>ХКСАШПСР</b></div>
+        <div class="about-cover__overlay"></div>
+        <div class="about-cover__content">
+          <span>КГАУ ДО</span>
+          <b>Хабаровская краевая спортивно-адаптивная школа</b>
+        </div>
       </article>
 
-      <div class="mission-grid">
-        <article class="mission-card"><span>01</span><h3>Реабилитация и адаптация</h3><p>Создание условий для реабилитации и абилитации инвалидов средствами адаптивной физической культуры и спорта.</p></article>
-        <article class="mission-card"><span>02</span><h3>Спортивный резерв</h3><p>Подготовка спортивного резерва и спортсменов высокого класса.</p></article>
+      <div class="about-grid">
+        <article class="about-card">
+          <span class="about-card__num">01</span>
+          <h3>Реабилитация и адаптация</h3>
+          <p>Создание условий для реабилитации и абилитации инвалидов средствами адаптивной физической культуры и спорта.</p>
+        </article>
+        <article class="about-card">
+          <span class="about-card__num">02</span>
+          <h3>Спортивный резерв</h3>
+          <p>Подготовка спортивного резерва и спортсменов высокого класса.</p>
+        </article>
       </div>
 
-      <div class="info-panel">
+      <article class="details-card">
         <h3>Ресурсный центр</h3>
         <p>Создан в 2020 году для сопровождения реабилитации и абилитации инвалидов и детей-инвалидов в области адаптивной физической культуры и спорта.</p>
-        <div class="info-row"><span>🕘</span><span><b>Пн–Пт: 09:00–18:00</b><small>Обед: 13:00–14:00</small></span></div>
-        <div class="info-row"><span>📍</span><span><b>ул. Муравьёва-Амурского, 4</b><small>офис 217, Хабаровск</small></span></div>
-      </div>
+        <div class="details-row"><span>🕘</span><span><b>Пн–Пт: 09:00–18:00</b><small>Обед: 13:00–14:00</small></span></div>
+        <div class="details-row"><span>📍</span><span><b>ул. Муравьёва-Амурского, 4</b><small>офис 217, Хабаровск</small></span></div>
+      </article>
 
       <button class="secondary-btn" data-target="main-screen">В главное меню</button>
     </section>
@@ -164,7 +217,7 @@
   <nav class="bottom-nav" aria-label="Быстрая навигация">
     <button data-target="main-screen"><span>⌂</span><small>Главная</small></button>
     <button data-target="sports-screen"><span>🏅</span><small>Спорт</small></button>
-    <button data-target="faq-screen"><span>?</span><small>FAQ</small></button>
+    <button data-target="faq-screen"><span>❓</span><small>FAQ</small></button>
     <button data-target="contact-screen"><span>☎</span><small>Связь</small></button>
   </nav>
 
