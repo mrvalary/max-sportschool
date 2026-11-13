@@ -107,3 +107,12 @@
 
 /* FAQ inner wrapper keeps height transitions smooth with real text content */
 .faq-a__inner{min-height:0;overflow:hidden}
+
+/* Desktop-only FAQ repair: reliably collapse inactive answers */
+@media (min-width: 700px){
+ .faq-item{align-self:start;min-height:0}
+ .faq-a{display:block!important;max-height:0!important;overflow:hidden!important;opacity:0;padding:0 16px!important;grid-template-rows:none!important;transition:max-height .35s ease,opacity .22s ease,padding .35s ease!important}
+ .faq-item.open .faq-a{max-height:500px!important;opacity:1;padding:0 16px 16px!important}
+ .faq-a__inner{display:block;min-height:0}
+}
+.gallery-card figcaption small{display:block;margin-top:3px;font-size:10px;color:#fffbdc}
