@@ -78,3 +78,29 @@
 .department-card__contacts{display:flex;flex-wrap:wrap;align-items:center;gap:8px;border-top:1px solid var(--border);padding-top:12px}
 .department-card__contacts a{display:inline-flex;align-items:center;text-decoration:none;color:var(--primary);font-size:13px;font-weight:750;background:rgba(22,129,222,.085);padding:9px 11px;border-radius:10px;overflow-wrap:anywhere}
 @media(prefers-color-scheme:dark){.department-card__icon{background:#213547}.department-card__room{background:#203952;color:#b6d9ff}.department-card__contacts a{background:#20364a;color:#a9d4ff}}
+
+/* Motion and interaction enhancements */
+.department-card__photo{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center 47%;border-radius:13px;margin:0 0 13px;background:#d6e6ef}
+.reveal-ready{opacity:0;transform:translate3d(0,18px,0)}
+.reveal-ready.revealed{opacity:1;transform:none;transition:opacity .55s ease,transform .55s cubic-bezier(.2,.7,.25,1)}
+.menu-card,.sport-card,.stat-card,.contact-card,.department-card,.gallery-card,.job-card,.primary-btn,.secondary-btn{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease,filter .22s ease}
+@media(hover:hover) and (pointer:fine){
+ .menu-card:hover,.sport-card:hover,.stat-card:hover,.contact-card:hover,.department-card:hover,.gallery-card:hover,.job-card:hover{transform:translateY(-3px);box-shadow:0 15px 33px rgba(30,58,93,.16);border-color:#a6cefa}
+ .gallery-card:hover img{transform:scale(1.045)}
+ .primary-btn:hover,.secondary-btn:hover{filter:brightness(1.06);box-shadow:0 12px 26px rgba(15,104,216,.2)}
+}
+.gallery-card img{transition:transform .55s ease}
+.primary-btn:active,.secondary-btn:active,.menu-card:active{transform:scale(.975)}
+.faq-a{display:grid!important;grid-template-rows:0fr;padding:0 16px;opacity:0;transition:grid-template-rows .3s ease,padding .3s ease,opacity .3s ease}
+.faq-a>*{min-height:0}
+.faq-item.open .faq-a{grid-template-rows:1fr;padding:0 16px 16px;opacity:1}
+.faq-a{overflow:hidden}
+.faq-chevron{transition:transform .28s ease}
+.bottom-nav button{transition:background .22s ease,color .22s ease,transform .2s ease}
+.bottom-nav button.is-active{color:var(--primary);background:rgba(15,104,216,.1);font-weight:800}
+.bottom-nav button.is-active span{animation:navPop .3s ease}
+@keyframes navPop{0%{transform:scale(.9)}60%{transform:scale(1.14)}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+ .reveal-ready{opacity:1!important;transform:none!important}
+}
