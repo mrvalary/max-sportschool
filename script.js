@@ -63,7 +63,6 @@ function showScreen(id){
   });
   window.scrollTo({top:0,behavior:reducedMotion?'instant':'smooth'});
   requestAnimationFrame(()=>observeReveals(target));
-  resetFaqTreeForScreen(id);
 }
 function groupWord(n){const a=n%10,b=n%100;return a===1&&b!==11?'группа':a>=2&&a<=4&&(b<12||b>14)?'группы':'групп';}
 const sportRoot=document.getElementById('sports-list');
@@ -122,101 +121,6 @@ if(appealButton){
     // Outside MAX, the standard anchor opens the form in a new tab.
   });
 }
-function initWinterSnowfall(){
-  const snowLayer=document.querySelector('.winter-snowfall');
-  if(!snowLayer||!window.matchMedia)return;
-  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-  if(reduceMotion.matches)return;
-  const isSmall=window.matchMedia('(max-width: 600px)').matches;
-  const amount=isSmall?18:34;
-  const fragment=document.createDocumentFragment();
-  for(let i=0;i<amount;i++){
-    const flake=document.createElement('span');
-    flake.className='winter-snowflake';
-    const size=2+(i*7%6);
-    const left=(i*37+11)%100;
-    const duration=10+(i*11%13);
-    const delay=-(i*13%22);
-    const drift=(i%2===0?1:-1)*(12+i*5%42);
-    flake.style.cssText='--flake-size:'+size+'px;--flake-left:'+left+'%;--flake-duration:'+duration+'s;--flake-delay:'+delay+'s;--flake-drift:'+drift+'px';
-    fragment.appendChild(flake);
-  }
-  snowLayer.appendChild(fragment);
-  document.addEventListener('visibilitychange',()=>{
-    snowLayer.classList.toggle('winter-snowfall--paused',document.hidden);
-  });
-  reduceMotion.addEventListener?.('change',event=>{
-    snowLayer.classList.toggle('winter-snowfall--paused',event.matches);
-    if(event.matches)snowLayer.replaceChildren();
-  });
-}
-let faqTreeTimeouts=[];
-function resetFaqTreeForScreen(id){
-  const widget=document.getElementById('faq-tree-widget');
-  const layer=document.getElementById('faq-fireworks-layer');
-  if(!widget)return;
-  faqTreeTimeouts.forEach(clearTimeout);
-  faqTreeTimeouts=[];
-  layer?.replaceChildren();
-  widget.classList.remove('faq-tree-widget--peeking','faq-tree-widget--celebrating','faq-tree-widget--retreating','faq-tree-widget--finished');
-  if(id==='faq-screen'){
-    widget.setAttribute('aria-hidden','false');
-    widget.classList.add('faq-tree-widget--peeking');
-  }else{
-    widget.setAttribute('aria-hidden','true');
-  }
-}
-function initFaqTreeSurprise(){
-  const widget=document.getElementById('faq-tree-widget');
-  const button=document.getElementById('faq-tree-button');
-  const layer=document.getElementById('faq-fireworks-layer');
-  if(!widget||!button||!layer)return;
-  const palette=['#ffd166','#ff7190','#61caff','#a98fff','#6fe2a1','#ffffff'];
-  const reduceMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)');
-  function firework(){
-    layer.replaceChildren();
-    const rect=button.getBoundingClientRect();
-    const x=rect.left+rect.width*.42;
-    const y=rect.top+rect.height*.36;
-    const reduced=Boolean(reduceMotion?.matches);
-    const count=reduced?5:32;
-    const fragment=document.createDocumentFragment();
-    for(let i=0;i<count;i++){
-      const particle=document.createElement('span');
-      particle.className='faq-firework-particle'+(reduced?' faq-firework-particle--still':'');
-      const angle=2*Math.PI*i/count;
-      const radius=45+(i*17%78);
-      particle.style.left=x+'px';
-      particle.style.top=y+'px';
-      particle.style.setProperty('--burst-x',Math.cos(angle)*radius+'px');
-      particle.style.setProperty('--burst-y',Math.sin(angle)*radius+'px');
-      particle.style.setProperty('--burst-color',palette[i%palette.length]);
-      particle.style.animationDelay=(i%4)*18+'ms';
-      fragment.appendChild(particle);
-    }
-    layer.appendChild(fragment);
-  }
-  button.addEventListener('click',()=>{
-    if(!document.getElementById('faq-screen')?.classList.contains('active'))return;
-    if(!widget.classList.contains('faq-tree-widget--peeking'))return;
-    widget.classList.remove('faq-tree-widget--peeking');
-    widget.classList.add('faq-tree-widget--celebrating');
-    const reduced=Boolean(reduceMotion?.matches);
-    faqTreeTimeouts.push(setTimeout(firework,reduced?40:420));
-    faqTreeTimeouts.push(setTimeout(()=>{
-      widget.classList.remove('faq-tree-widget--celebrating');
-      widget.classList.add('faq-tree-widget--retreating');
-    },reduced?850:1500));
-    faqTreeTimeouts.push(setTimeout(()=>{
-      widget.classList.remove('faq-tree-widget--retreating');
-      widget.classList.add('faq-tree-widget--finished');
-      widget.setAttribute('aria-hidden','true');
-      layer.replaceChildren();
-    },reduced?950:2180));
-  });
-}
-initFaqTreeSurprise();
-initWinterSnowfall();
 observeReveals(document.getElementById('main-screen'));
 document.querySelectorAll('.bottom-nav button').forEach(button=>{
   const active=button.dataset.target==='main-screen';
