@@ -137,3 +137,18 @@
 .sport-card__contact{width:100%;padding:12px 14px;background:rgba(15,104,216,.11);color:var(--primary);border:1px solid rgba(15,104,216,.18);border-radius:12px;cursor:pointer;font-weight:750;font-size:13px}
 @media(max-width:420px){.sport-card__toggle{gap:9px;padding:13px}.sport-card__toggle .sport-card__icon{flex-basis:42px;width:42px;height:42px}.sport-card__chevron{font-size:21px}.sport-card__detail-row{flex-direction:column;gap:2px}.sport-card__detail-row strong{text-align:left}}
 @media(prefers-reduced-motion:reduce){.sport-card__panel,.sport-card__chevron{transition:none!important}}
+
+/* Winter decoration: lightweight, non-interactive, reduced-motion friendly */
+.winter-snowfall{position:fixed;inset:0;z-index:25;overflow:hidden;pointer-events:none;contain:strict}
+.winter-snowflake{position:absolute;left:var(--flake-left);top:-12px;width:var(--flake-size);height:var(--flake-size);border-radius:50%;background:#e6f7ff;box-shadow:0 0 7px 1px rgba(88,177,238,.55),0 0 2px #fff;opacity:.66;animation:winter-fall var(--flake-duration) linear var(--flake-delay) infinite;will-change:transform}
+.winter-snowfall--paused .winter-snowflake{animation-play-state:paused}
+@keyframes winter-fall{0%{transform:translate3d(0,-18px,0);opacity:0}8%{opacity:.72}90%{opacity:.55}100%{transform:translate3d(var(--flake-drift),105vh,0);opacity:0}}
+.badge--winter{background:rgba(228,248,255,.2);border:1px solid rgba(240,252,255,.46);box-shadow:0 0 18px rgba(121,207,255,.2)}
+.menu-card,.primary-btn,.secondary-btn{isolation:isolate}
+.menu-card::before{content:"";position:absolute;z-index:1;top:-1px;left:15px;right:17px;height:5px;pointer-events:none;border-radius:0 0 12px 12px;background:linear-gradient(90deg,transparent,rgba(208,238,255,.86) 13%,rgba(255,255,255,.96) 37%,rgba(210,241,255,.82) 73%,transparent);filter:drop-shadow(0 1px 2px rgba(101,172,226,.28))}
+.menu-card--accent::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),#fff,rgba(255,255,255,.68),transparent)}
+.primary-btn{position:relative}
+.primary-btn::after{content:"❄";position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:14px;line-height:1;opacity:.75;pointer-events:none;text-shadow:0 0 8px rgba(235,251,255,.7)}
+.hero-card{box-shadow:var(--shadow),0 0 28px rgba(95,183,245,.18)}
+@media(max-width:400px){.primary-btn::after{right:6px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){.winter-snowfall{display:none}.winter-snowflake{animation:none!important}}
