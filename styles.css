@@ -152,3 +152,34 @@
 .hero-card{box-shadow:var(--shadow),0 0 28px rgba(95,183,245,.18)}
 @media(max-width:400px){.primary-btn::after{right:6px;font-size:12px}}
 @media(prefers-reduced-motion:reduce){.winter-snowfall{display:none}.winter-snowflake{animation:none!important}}
+
+/* Winter garland, snowy firs and frost accents: CSS-only; no extra images or JS */
+.hero-card{isolation:isolate}
+.winter-garland{position:absolute;inset:0 0 auto;z-index:4;height:54px;pointer-events:none;overflow:hidden}
+.winter-garland__branch{position:absolute;left:6%;right:6%;top:-24px;height:59px;border-radius:0 0 50% 50%;border-bottom:7px solid rgba(34,104,78,.92);filter:drop-shadow(0 3px 3px rgba(0,0,0,.22))}
+.winter-garland__branch::before{content:"";position:absolute;top:17px;left:0;width:100%;height:29px;border-radius:50%;background:repeating-linear-gradient(115deg,transparent 0 7px,rgba(28,100,72,.96) 7px 11px,rgba(101,177,133,.85) 11px 13px,transparent 13px 19px);opacity:.9;clip-path:ellipse(51% 45% at 50% 0%)}
+.winter-garland__branch::after{content:"";position:absolute;left:7%;right:7%;bottom:-6px;height:3px;background:rgba(237,249,255,.75);border-radius:50%;filter:blur(1px)}
+.winter-garland__lights{position:absolute;inset:18px 11% auto;display:flex;justify-content:space-between;align-items:flex-start}
+.winter-garland__lights i{position:relative;display:block;width:7px;height:10px;border-radius:45% 45% 55% 55%;background:#fff0a8;box-shadow:0 0 8px 3px rgba(255,222,112,.52);animation:winter-twinkle 3.2s ease-in-out infinite}
+.winter-garland__lights i:nth-child(3n+2){background:#a3f2ff;box-shadow:0 0 8px 3px rgba(130,216,255,.6);animation-delay:-1.2s}
+.winter-garland__lights i:nth-child(3n){background:#ffc1c1;box-shadow:0 0 8px 3px rgba(250,154,150,.5);animation-delay:-2.1s}
+.winter-garland__lights i:nth-child(even){top:4px}
+.winter-garland__lights i::before{content:"";position:absolute;top:-3px;left:2px;width:3px;height:3px;background:#30543a;border-radius:1px}
+.winter-garland__ornament{position:absolute;top:27px;color:#fff3b5;font-size:18px;text-shadow:0 0 7px #fff0a0}
+.winter-garland__ornament--left{left:13%}
+.winter-garland__ornament--right{right:12%}
+@keyframes winter-twinkle{0%,100%{opacity:.8;filter:brightness(.9)}50%{opacity:1;filter:brightness(1.2)}}
+.winter-forest{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:-6px 5px 8px;position:relative;z-index:2;pointer-events:none}
+.winter-forest__tree{display:inline-block;font-size:32px;line-height:1.1;filter:drop-shadow(0 3px 2px rgba(23,90,104,.18))}
+.winter-forest__tree--left{transform:rotate(-7deg)}
+.winter-forest__tree--right{transform:rotate(7deg)}
+.winter-forest__greeting{text-align:center;font-size:11px;line-height:1.25;font-weight:800;letter-spacing:.025em;color:#4f799e;background:rgba(255,255,255,.73);border:1px solid rgba(191,222,246,.85);border-radius:999px;padding:6px 9px}
+.stat-card,.about-card,.department-card,.contact-card,.job-card,.sport-card,.faq-item{background-image:radial-gradient(ellipse 66px 27px at 100% 0,rgba(177,219,251,.27),transparent 78%),radial-gradient(ellipse 42px 22px at 0 0,rgba(221,244,255,.42),transparent 85%)}
+.stat-card,.about-card,.department-card,.contact-card,.job-card,.sport-card,.faq-item{background-blend-mode:normal}
+@media(max-width:390px){
+ .winter-garland{height:46px}
+ .winter-garland__ornament{font-size:14px}
+ .winter-forest__tree{font-size:27px}
+ .winter-forest__greeting{font-size:10px;padding:5px 7px}
+}
+@media(prefers-reduced-motion:reduce){.winter-garland__lights i{animation:none!important}}
