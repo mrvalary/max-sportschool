@@ -63,6 +63,7 @@ function showScreen(id){
   });
   window.scrollTo({top:0,behavior:reducedMotion?'instant':'smooth'});
   requestAnimationFrame(()=>observeReveals(target));
+  resetFaqTreeForScreen(id);
 }
 function groupWord(n){const a=n%10,b=n%100;return a===1&&b!==11?'группа':a>=2&&a<=4&&(b<12||b>14)?'группы':'групп';}
 const sportRoot=document.getElementById('sports-list');
@@ -149,40 +150,69 @@ function initWinterSnowfall(){
     if(event.matches)snowLayer.replaceChildren();
   });
 }
-function initFaqTreeSurprise(){
-  const treeButton=document.getElementById('faq-tree-button');
+let faqTreeTimeouts=[];
+function resetFaqTreeForScreen(id){
+  const widget=document.getElementById('faq-tree-widget');
   const layer=document.getElementById('faq-fireworks-layer');
-  if(!treeButton||!layer)return;
+  if(!widget)return;
+  faqTreeTimeouts.forEach(clearTimeout);
+  faqTreeTimeouts=[];
+  layer?.replaceChildren();
+  widget.classList.remove('faq-tree-widget--peeking','faq-tree-widget--celebrating','faq-tree-widget--retreating','faq-tree-widget--finished');
+  if(id==='faq-screen'){
+    widget.setAttribute('aria-hidden','false');
+    widget.classList.add('faq-tree-widget--peeking');
+  }else{
+    widget.setAttribute('aria-hidden','true');
+  }
+}
+function initFaqTreeSurprise(){
+  const widget=document.getElementById('faq-tree-widget');
+  const button=document.getElementById('faq-tree-button');
+  const layer=document.getElementById('faq-fireworks-layer');
+  if(!widget||!button||!layer)return;
   const palette=['#ffd166','#ff7190','#61caff','#a98fff','#6fe2a1','#ffffff'];
-  const prefersLessMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)');
-  treeButton.addEventListener('click',()=>{
+  const reduceMotion=window.matchMedia?.('(prefers-reduced-motion: reduce)');
+  function firework(){
     layer.replaceChildren();
-    treeButton.classList.remove('faq-tree-button--celebrate');
-    void treeButton.offsetWidth;
-    treeButton.classList.add('faq-tree-button--celebrate');
-    const rect=treeButton.getBoundingClientRect();
-    const x=rect.left+rect.width*.45;
-    const y=rect.top+rect.height*.40;
-    const reduced=Boolean(prefersLessMotion?.matches);
-    const count=reduced?1:24;
+    const rect=button.getBoundingClientRect();
+    const x=rect.left+rect.width*.42;
+    const y=rect.top+rect.height*.36;
+    const reduced=Boolean(reduceMotion?.matches);
+    const count=reduced?5:32;
     const fragment=document.createDocumentFragment();
     for(let i=0;i<count;i++){
       const particle=document.createElement('span');
       particle.className='faq-firework-particle'+(reduced?' faq-firework-particle--still':'');
       const angle=2*Math.PI*i/count;
-      const radius=36+(i*17%76);
+      const radius=45+(i*17%78);
       particle.style.left=x+'px';
       particle.style.top=y+'px';
       particle.style.setProperty('--burst-x',Math.cos(angle)*radius+'px');
       particle.style.setProperty('--burst-y',Math.sin(angle)*radius+'px');
       particle.style.setProperty('--burst-color',palette[i%palette.length]);
-      particle.style.animationDelay=(i%4)*24+'ms';
-      particle.addEventListener('animationend',()=>particle.remove(),{once:true});
+      particle.style.animationDelay=(i%4)*18+'ms';
       fragment.appendChild(particle);
     }
     layer.appendChild(fragment);
-    // Removes particles in clients that suppress CSS animation completion events.
-    setTimeout(()=>layer.replaceChildren(),reduced?1000:1450);
+  }
+  button.addEventListener('click',()=>{
+    if(!document.getElementById('faq-screen')?.classList.contains('active'))return;
+    if(!widget.classList.contains('faq-tree-widget--peeking'))return;
+    widget.classList.remove('faq-tree-widget--peeking');
+    widget.classList.add('faq-tree-widget--celebrating');
+    const reduced=Boolean(reduceMotion?.matches);
+    faqTreeTimeouts.push(setTimeout(firework,reduced?40:420));
+    faqTreeTimeouts.push(setTimeout(()=>{
+      widget.classList.remove('faq-tree-widget--celebrating');
+      widget.classList.add('faq-tree-widget--retreating');
+    },reduced?850:1500));
+    faqTreeTimeouts.push(setTimeout(()=>{
+      widget.classList.remove('faq-tree-widget--retreating');
+      widget.classList.add('faq-tree-widget--finished');
+      widget.setAttribute('aria-hidden','true');
+      layer.replaceChildren();
+    },reduced?950:2180));
   });
 }
 initFaqTreeSurprise();
