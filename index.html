@@ -8,7 +8,19 @@
   <meta name="description" content="Мини-приложение Хабаровской краевой спортивно-адаптивной школы для MAX" />
   <title>ХКСАШПСР — MAX Mini App</title>
   <link rel="preconnect" href="https://kski.ru" />
-  <link rel="stylesheet" href="styles.css?v=remove-ice-20261114" />
+  <link rel="stylesheet" href="styles.css?v=no-ice-20261114-2" />
+  <style id="no-menu-ice-stripes">
+    /* Inline fallback for cached stylesheets inside MAX WebView. */
+    .menu-card::before,
+    .menu-card.menu-card--accent::before,
+    .menu-card.menu-card--vacancies::before {
+      content: none !important;
+      display: none !important;
+      background: none !important;
+      box-shadow: none !important;
+      filter: none !important;
+    }
+  </style>
 </head>
 <body>
   <div class="winter-snowfall" aria-hidden="true"></div>
