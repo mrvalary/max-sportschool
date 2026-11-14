@@ -121,6 +121,46 @@ if(appealButton){
     // Outside MAX, the standard anchor opens the form in a new tab.
   });
 }
+const winterPreferenceKey='max-sportschool-winter-theme';
+let winterEnabled=false;
+function createSnowflakes(){
+  const layer=document.getElementById('winter-snowfall');
+  if(!layer||layer.childElementCount)return;
+  const count=window.innerWidth<600?18:30;
+  const frag=document.createDocumentFragment();
+  for(let i=0;i<count;i++){
+    const snow=document.createElement('span');
+    snow.className='winter-snowflake';
+    snow.style.setProperty('--x',((i*37+9)%100)+'%');
+    snow.style.setProperty('--size',(3+i*7%6)+'px');
+    snow.style.setProperty('--duration',(10+i*11%11)+'s');
+    snow.style.setProperty('--delay',(-(i*13%20))+'s');
+    snow.style.setProperty('--drift',((i%2?1:-1)*(15+i*7%40))+'px');
+    frag.appendChild(snow);
+  }
+  layer.appendChild(frag);
+}
+function applyWinterTheme(enabled){
+  winterEnabled=enabled;
+  document.body.classList.toggle('winter-theme',enabled);
+  const toggle=document.getElementById('winter-theme-toggle');
+  if(toggle)toggle.checked=enabled;
+  const status=document.getElementById('winter-theme-status');
+  if(status)status.textContent=enabled?'Включена':'Выключена';
+  const badge=document.getElementById('app-season-badge');
+  if(badge)badge.textContent=enabled?'❄️ Зимний сезон':'MAX Mini App';
+  if(enabled)createSnowflakes();
+  else document.getElementById('winter-snowfall')?.replaceChildren();
+  try{window.localStorage.setItem(winterPreferenceKey,enabled?'on':'off');}catch(error){}
+}
+const winterToggle=document.getElementById('winter-theme-toggle');
+winterToggle?.addEventListener('change',()=>applyWinterTheme(winterToggle.checked));
+let savedWinterPreference='off';
+try{savedWinterPreference=window.localStorage.getItem(winterPreferenceKey)||'off';}catch(error){}
+applyWinterTheme(savedWinterPreference==='on');
+document.addEventListener('visibilitychange',()=>{
+  document.getElementById('winter-snowfall')?.classList.toggle('winter-snowfall--paused',document.hidden);
+});
 observeReveals(document.getElementById('main-screen'));
 document.querySelectorAll('.bottom-nav button').forEach(button=>{
   const active=button.dataset.target==='main-screen';
