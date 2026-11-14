@@ -121,6 +121,35 @@ if(appealButton){
     // Outside MAX, the standard anchor opens the form in a new tab.
   });
 }
+function initWinterSnowfall(){
+  const snowLayer=document.querySelector('.winter-snowfall');
+  if(!snowLayer||!window.matchMedia)return;
+  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  if(reduceMotion.matches)return;
+  const isSmall=window.matchMedia('(max-width: 600px)').matches;
+  const amount=isSmall?18:34;
+  const fragment=document.createDocumentFragment();
+  for(let i=0;i<amount;i++){
+    const flake=document.createElement('span');
+    flake.className='winter-snowflake';
+    const size=2+(i*7%6);
+    const left=(i*37+11)%100;
+    const duration=10+(i*11%13);
+    const delay=-(i*13%22);
+    const drift=(i%2===0?1:-1)*(12+i*5%42);
+    flake.style.cssText='--flake-size:'+size+'px;--flake-left:'+left+'%;--flake-duration:'+duration+'s;--flake-delay:'+delay+'s;--flake-drift:'+drift+'px';
+    fragment.appendChild(flake);
+  }
+  snowLayer.appendChild(fragment);
+  document.addEventListener('visibilitychange',()=>{
+    snowLayer.classList.toggle('winter-snowfall--paused',document.hidden);
+  });
+  reduceMotion.addEventListener?.('change',event=>{
+    snowLayer.classList.toggle('winter-snowfall--paused',event.matches);
+    if(event.matches)snowLayer.replaceChildren();
+  });
+}
+initWinterSnowfall();
 observeReveals(document.getElementById('main-screen'));
 document.querySelectorAll('.bottom-nav button').forEach(button=>{
   const active=button.dataset.target==='main-screen';
