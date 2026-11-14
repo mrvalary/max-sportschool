@@ -8,7 +8,7 @@
   <meta name="description" content="Мини-приложение Хабаровской краевой спортивно-адаптивной школы для MAX" />
   <title>ХКСАШПСР — MAX Mini App</title>
   <link rel="preconnect" href="https://kski.ru" />
-  <link rel="stylesheet" href="styles.css?v=standard-20261114-1" />
+  <link rel="stylesheet" href="styles.css?v=settings-winter-20261114-1" />
   <style id="no-menu-ice-stripes">
     /* Inline fallback for cached stylesheets inside MAX WebView. */
     .menu-card::before,
@@ -23,6 +23,7 @@
   </style>
 </head>
 <body>
+  <div id="winter-snowfall" class="winter-snowfall" aria-hidden="true"></div>
   <div class="bg-orb bg-orb--1"></div>
   <div class="bg-orb bg-orb--2"></div>
 
@@ -34,7 +35,7 @@
         <div class="hero-card__content">
           <div class="hero-card__top">
             <img class="hero-card__logo" src="https://kski.ru/media/2024/04/01/01042024-2.png" alt="Логотип школы" />
-            <span class="badge">MAX Mini App</span>
+            <span id="app-season-badge" class="badge">MAX Mini App</span>
           </div>
           <div class="hero-card__bottom">
             <p class="eyebrow eyebrow--light">КГАУ ДО «ХКСАШПСР»</p>
@@ -354,6 +355,28 @@
       <p class="jobs-note">Зарплаты и количество мест приведены по опубликованным данным школы и могут меняться. <a href="https://kski.ru/content/bez-kategorii/vakansii/" target="_blank" rel="noopener">Проверить на официальном сайте ↗</a></p>
       <button class="secondary-btn" data-target="main-screen">В главное меню</button>
     </section>
+    <section id="settings-screen" class="screen" aria-labelledby="settings-title">
+      <header class="screen-header">
+        <button class="back-btn" data-target="main-screen">← Назад</button>
+        <p class="eyebrow">Персонализация</p>
+        <h2 id="settings-title">Настройки</h2>
+        <p class="screen-header__text">Настройте внешний вид мини-приложения под себя.</p>
+      </header>
+      <div class="settings-card">
+        <div class="settings-card__icon" aria-hidden="true">❄️</div>
+        <div class="settings-card__body">
+          <label for="winter-theme-toggle" class="settings-card__title">Зимняя тема</label>
+          <p>Падающие снежинки и праздничное оформление.</p>
+          <span id="winter-theme-status" class="settings-card__status" aria-live="polite">Выключена</span>
+        </div>
+        <label class="theme-switch" for="winter-theme-toggle">
+          <input type="checkbox" id="winter-theme-toggle" role="switch" aria-label="Зимняя тема" />
+          <span class="theme-switch__track" aria-hidden="true"></span>
+        </label>
+      </div>
+      <p class="settings-hint">Тема включается только для вас. По умолчанию зимнее оформление выключено, выбор сохраняется на этом устройстве, если доступно хранилище браузера.</p>
+      <button class="secondary-btn" data-target="main-screen">В главное меню</button>
+    </section>
   </main>
 
   <nav class="bottom-nav" aria-label="Быстрая навигация">
@@ -361,8 +384,9 @@
     <button data-target="sports-screen"><span>🏅</span><small>Спорт</small></button>
     <button data-target="faq-screen"><span>❓</span><small>FAQ</small></button>
     <button data-target="contact-screen"><span>☎</span><small>Связь</small></button>
+    <button data-target="settings-screen"><span>⚙️</span><small>Настройки</small></button>
   </nav>
 
-  <script src="script.js?v=standard-20261114-1"></script>
+  <script src="script.js?v=settings-winter-20261114-1"></script>
 </body>
 </html>
