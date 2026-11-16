@@ -128,7 +128,6 @@ function closeJobApplyDialog(){
   if(!jobApplyDialog||jobApplyDialog.hidden)return;
   jobApplyDialog.hidden=true;
   document.body.classList.remove('job-apply-open');
-  document.getElementById('job-apply-feedback').textContent='';
   if(previousJobFocus?.isConnected)previousJobFocus.focus();
   previousJobFocus=null;
 }
@@ -139,32 +138,15 @@ function openJobApplyDialog(link){
   const mailLink=link.getAttribute('href')||'mailto:4212304960@mail.ru';
   const query=mailLink.includes('?')?mailLink.slice(mailLink.indexOf('?')+1):'';
   const subject=new URLSearchParams(query).get('subject')||('Резюме — '+title);
-  document.getElementById('job-apply-position').textContent=title;
-  document.getElementById('job-apply-address').value='4212304960@mail.ru';
-  document.getElementById('job-apply-subject').value=subject;
-  // Use HTTPS webmail links as the primary action: mailto may be ignored by MAX.
   const recipient='4212304960@mail.ru';
-  document.getElementById('job-apply-open-mail').href='https://e.mail.ru/compose/?mailto='+encodeURIComponent('mailto:'+recipient+'?subject='+encodeURIComponent(subject));
+  const mailto='mailto:'+recipient+'?subject='+encodeURIComponent(subject);
+  document.getElementById('job-apply-position').textContent=title;
+  document.getElementById('job-apply-open-mail').href='https://e.mail.ru/compose/?mailto='+encodeURIComponent(mailto);
   document.getElementById('job-apply-gmail').href='https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(recipient)+'&su='+encodeURIComponent(subject);
-  document.getElementById('job-apply-outlook').href='https://outlook.live.com/mail/0/deeplink/compose?to='+encodeURIComponent(recipient)+'&subject='+encodeURIComponent(subject);
-  document.getElementById('job-apply-native-mail').href=mailLink;
-  document.getElementById('job-apply-feedback').textContent='';
+  document.getElementById('job-apply-yandex').href='https://mail.yandex.ru/compose?mailto='+encodeURIComponent(mailto);
   jobApplyDialog.hidden=false;
   document.body.classList.add('job-apply-open');
   document.getElementById('job-apply-close').focus();
-}
-async function copyJobApplyValue(kind){
-  const field=document.getElementById(kind==='email'?'job-apply-address':'job-apply-subject');
-  if(!field)return;
-  let copied=false;
-  try{
-    if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(field.value);copied=true;}
-  }catch(error){}
-  if(!copied){
-    field.focus();field.select();
-    try{copied=document.execCommand('copy');}catch(error){}
-  }
-  document.getElementById('job-apply-feedback').textContent=copied?'Скопировано. Можно вставить в письмо.':'Выделено — скопируйте текст вручную.';
 }
 document.addEventListener('click',event=>{
   const trigger=event.target.closest('[data-job-apply]');
@@ -174,9 +156,7 @@ document.addEventListener('click',event=>{
     openJobApplyDialog(trigger);
     return;
   }
-  if(event.target.closest('[data-close-job-apply]')){closeJobApplyDialog();return;}
-  const copyButton=event.target.closest('[data-copy-job]');
-  if(copyButton)copyJobApplyValue(copyButton.dataset.copyJob);
+  if(event.target.closest('[data-close-job-apply]'))closeJobApplyDialog();
 });
 document.addEventListener('keydown',event=>{
   if(!jobApplyDialog||jobApplyDialog.hidden)return;
