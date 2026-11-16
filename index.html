@@ -8,7 +8,7 @@
   <meta name="description" content="Мини-приложение Хабаровской краевой спортивно-адаптивной школы для MAX" />
   <title>ХКСАШПСР — MAX Mini App</title>
   <link rel="preconnect" href="https://kski.ru" />
-  <link rel="stylesheet" href="styles.css?v=job-webmail-20261116-2" />
+  <link rel="stylesheet" href="styles.css?v=gto-section-20261116-1" />
   <style id="no-menu-ice-stripes">
     /* Inline fallback for cached stylesheets inside MAX WebView. */
     .menu-card::before,
@@ -85,6 +85,14 @@
           </span>
           <span class="menu-card__arrow">→</span>
         </button>
+        <button class="menu-card menu-card--gto" type="button" data-target="gto-screen">
+          <span class="menu-card__icon" aria-hidden="true">🏅</span>
+          <span class="menu-card__body">
+            <b>ГТО</b>
+            <small>Нормативы, порядок участия и региональный центр</small>
+          </span>
+          <span class="menu-card__arrow" aria-hidden="true">→</span>
+        </button>
         <button class="menu-card menu-card--vacancies" data-target="jobs-screen">
           <span class="menu-card__icon">💼</span>
           <span class="menu-card__body">
@@ -140,6 +148,80 @@
       </div>
 
       <button class="secondary-btn" data-target="main-screen">В главное меню</button>
+    </section>
+
+    <section id="gto-screen" class="screen" aria-labelledby="gto-title">
+      <header class="screen-header">
+        <button class="back-btn" type="button" data-target="main-screen">← Назад</button>
+        <p class="eyebrow">Региональный центр тестирования</p>
+        <h2 id="gto-title">ГТО</h2>
+        <p class="screen-header__text">Информация о выполнении нормативов комплекса «Готов к труду и обороне» для инвалидов и лиц с ограниченными возможностями здоровья.</p>
+      </header>
+
+      <article class="gto-hero">
+        <div class="gto-hero__top">
+          <span class="gto-hero__medal" aria-hidden="true">🏅</span>
+          <span class="gto-hero__label">Спорт для каждого</span>
+        </div>
+        <h3>Готов к труду и обороне</h3>
+        <p>Попробуйте свои силы, проверьте физическую подготовку и узнайте, как принять участие в тестировании ГТО в Хабаровском крае.</p>
+        <button class="gto-hero__button" type="button" data-target="contact-screen">Связаться с администрацией →</button>
+      </article>
+
+      <div class="gto-info-grid">
+        <article class="gto-info-card">
+          <span class="gto-info-card__icon" aria-hidden="true">🎯</span>
+          <h3>Что такое ГТО?</h3>
+          <p>Всероссийский физкультурно-спортивный комплекс с испытаниями, которые помогают оценить физическую подготовку. За выполнение нормативов предусмотрены золотой, серебряный и бронзовый знаки отличия.</p>
+        </article>
+        <article class="gto-info-card">
+          <span class="gto-info-card__icon" aria-hidden="true">🤝</span>
+          <h3>Кто может участвовать?</h3>
+          <p>Дети от 6 лет и взрослые, в том числе люди с инвалидностью и ОВЗ. Испытания и нормативы определяются по установленной категории, возрасту и другим требованиям комплекса ГТО.</p>
+        </article>
+      </div>
+
+      <section class="gto-panel" aria-labelledby="gto-steps-title">
+        <div class="gto-panel__heading">
+          <span aria-hidden="true">📋</span>
+          <h3 id="gto-steps-title">Как принять участие</h3>
+        </div>
+        <ol class="gto-steps">
+          <li><span class="gto-steps__number" aria-hidden="true">1</span><div><b>Зарегистрируйтесь в системе ГТО</b><p>Войдите в личный кабинет участника через Госуслуги. Для ребёнка может понадобиться отдельная учётная запись, созданная родителем.</p></div></li>
+          <li><span class="gto-steps__number" aria-hidden="true">2</span><div><b>Уточните условия в региональном центре</b><p>Свяжитесь со специалистами школы, чтобы узнать о доступных испытаниях, месте и времени проведения тестирования.</p></div></li>
+          <li><span class="gto-steps__number" aria-hidden="true">3</span><div><b>Подготовьте необходимые документы</b><p>Перед выполнением нормативов потребуется медицинский допуск по действующим правилам. Перечень документов и порядок допуска уточните у специалистов центра.</p></div></li>
+          <li><span class="gto-steps__number" aria-hidden="true">4</span><div><b>Запишитесь и пройдите тестирование</b><p>При наличии доступных слотов запись возможна через личный кабинет ГТО или Госуслуги. Пройдите испытания в согласованное время.</p></div></li>
+        </ol>
+        <p class="gto-panel__note">Это информационная инструкция, а не форма записи. Возможность участия, необходимый допуск и условия тестирования подтверждаются специалистами центра.</p>
+      </section>
+
+      <section class="gto-panel" aria-labelledby="gto-standards-title">
+        <div class="gto-panel__heading">
+          <span aria-hidden="true">🥇</span>
+          <h3 id="gto-standards-title">Нормативы и результаты</h3>
+        </div>
+        <p class="gto-panel__text">Для людей с инвалидностью и ОВЗ предусмотрены специальные нормативы. Конкретный набор испытаний и требования зависят от соответствующей категории и возрастной ступени. Актуальные таблицы размещены на официальном сайте ГТО.</p>
+        <div class="gto-links">
+          <a class="gto-links__item gto-links__item--primary" href="https://www.gto.ru/normativy/osobaya-kategoriya/" target="_blank" rel="noopener noreferrer"><span>Нормативы для особой категории</span><span aria-hidden="true">↗</span></a>
+          <a class="gto-links__item" href="https://gto.gov.ru/lk/" target="_blank" rel="noopener noreferrer"><span>Личный кабинет участника ГТО</span><span aria-hidden="true">↗</span></a>
+          <a class="gto-links__item" href="https://www.gto.ru/vopros-otvet/testirovanie/" target="_blank" rel="noopener noreferrer"><span>Ответы на вопросы о тестировании</span><span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="gto-panel gto-contact" aria-labelledby="gto-contact-title">
+        <div class="gto-panel__heading">
+          <span aria-hidden="true">☎️</span>
+          <h3 id="gto-contact-title">Региональный центр ГТО</h3>
+        </div>
+        <p class="gto-panel__text">Центр тестирования ГТО среди инвалидов и лиц с ОВЗ действует на базе школы с 2019 года. По вопросам участия обращайтесь к сотрудникам центра.</p>
+        <div class="gto-contact__detail"><span aria-hidden="true">📍</span><span>г. Хабаровск, ул. Муравьёва-Амурского, 4, кабинет 216</span></div>
+        <a class="gto-contact__detail gto-contact__detail--link" href="tel:+79098005714"><span aria-hidden="true">📞</span><span>+7 (909) 800-57-14</span></a>
+        <a class="gto-contact__detail gto-contact__detail--link" href="mailto:gtoadaptivkhv@mail.ru"><span aria-hidden="true">✉️</span><span>gtoadaptivkhv@mail.ru</span></a>
+        <p class="gto-contact__note">Уточняйте актуальное расписание и формат записи по телефону или электронной почте центра.</p>
+      </section>
+
+      <p class="gto-sources">Сведения: <a href="https://kski.ru/contact-us/" target="_blank" rel="noopener noreferrer">официальные контакты школы ↗</a> и <a href="https://www.gto.ru/" target="_blank" rel="noopener noreferrer">портал ГТО ↗</a>.</p>
+      <button class="secondary-btn" type="button" data-target="main-screen">В главное меню</button>
     </section>
 
     <section id="faq-screen" class="screen" aria-labelledby="faq-title">
@@ -213,7 +295,9 @@
           <h4>Региональный центр ГТО среди инвалидов и лиц с ОВЗ</h4>
           <div class="department-card__contacts">
             <a href="tel:+79098005714">+7 (909) 800-57-14</a>
+            <a href="mailto:gtoadaptivkhv@mail.ru">gtoadaptivkhv@mail.ru</a>
           </div>
+          <button class="gto-contact-more" type="button" data-target="gto-screen">Подробнее о ГТО →</button>
         </article>
       </div>
 
