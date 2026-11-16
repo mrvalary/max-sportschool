@@ -142,7 +142,12 @@ function openJobApplyDialog(link){
   document.getElementById('job-apply-position').textContent=title;
   document.getElementById('job-apply-address').value='4212304960@mail.ru';
   document.getElementById('job-apply-subject').value=subject;
-  document.getElementById('job-apply-open-mail').href=mailLink;
+  // Use HTTPS webmail links as the primary action: mailto may be ignored by MAX.
+  const recipient='4212304960@mail.ru';
+  document.getElementById('job-apply-open-mail').href='https://e.mail.ru/compose/';
+  document.getElementById('job-apply-gmail').href='https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(recipient)+'&su='+encodeURIComponent(subject);
+  document.getElementById('job-apply-outlook').href='https://outlook.live.com/mail/0/deeplink/compose?to='+encodeURIComponent(recipient)+'&subject='+encodeURIComponent(subject);
+  document.getElementById('job-apply-native-mail').href=mailLink;
   document.getElementById('job-apply-feedback').textContent='';
   jobApplyDialog.hidden=false;
   document.body.classList.add('job-apply-open');
