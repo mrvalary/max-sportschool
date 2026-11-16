@@ -393,31 +393,18 @@
       <button type="button" id="job-apply-close" class="job-apply-dialog__close" aria-label="Закрыть" data-close-job-apply>×</button>
       <div class="job-apply-dialog__icon" aria-hidden="true">📩</div>
       <h2 id="job-apply-title">Отклик на вакансию</h2>
-      <p id="job-apply-description">Подготовьте резюме и отправьте его на почту отдела кадров. Вы можете открыть почтовое приложение или скопировать данные для письма.</p>
+      <p id="job-apply-description">Выберите удобную почту для отправки резюме.</p>
       <p class="job-apply-dialog__position" id="job-apply-position"></p>
-      <label class="job-apply-dialog__label" for="job-apply-address">Электронная почта отдела кадров</label>
-      <div class="job-apply-dialog__copy-row">
-        <input id="job-apply-address" type="text" readonly value="4212304960@mail.ru" />
-        <button type="button" data-copy-job="email">Копировать</button>
-      </div>
-      <label class="job-apply-dialog__label" for="job-apply-subject">Тема письма</label>
-      <div class="job-apply-dialog__copy-row">
-        <input id="job-apply-subject" type="text" readonly />
-        <button type="button" data-copy-job="subject">Копировать</button>
-      </div>
-      <p class="job-apply-dialog__label">Выберите почту для отправки резюме</p>
-      <a id="job-apply-open-mail" class="job-apply-dialog__mail" href="https://e.mail.ru/compose/?mailto=mailto%3A4212304960%40mail.ru%3Fsubject%3D%25D0%25A0%25D0%25B5%25D0%25B7%25D1%258E%25D0%25BC%25D0%25B5%2520%25D0%25B2%2520%25D0%25A5%25D0%259A%25D0%25A1%25D0%2590%25D0%25A8%25D0%259F%25D0%25A1%25D0%25A0" target="_blank" rel="noopener noreferrer">✉️ Написать письмо в Mail.ru ↗</a>
+      <a id="job-apply-open-mail" class="job-apply-dialog__mail" href="https://e.mail.ru/compose/" target="_blank" rel="noopener noreferrer">✉️ Mail.ru</a>
       <div class="job-apply-dialog__providers">
-        <a id="job-apply-gmail" class="job-apply-dialog__provider" href="https://mail.google.com/mail/?view=cm&amp;to=4212304960%40mail.ru" target="_blank" rel="noopener noreferrer">Gmail ↗</a>
-        <a id="job-apply-outlook" class="job-apply-dialog__provider" href="https://outlook.live.com/mail/0/deeplink/compose?to=4212304960%40mail.ru" target="_blank" rel="noopener noreferrer">Outlook ↗</a>
+        <a id="job-apply-gmail" class="job-apply-dialog__provider" href="https://mail.google.com/mail/?view=cm" target="_blank" rel="noopener noreferrer">Gmail ↗</a>
+        <a id="job-apply-yandex" class="job-apply-dialog__provider" href="https://mail.yandex.ru/compose" target="_blank" rel="noopener noreferrer">Яндекс Почта ↗</a>
       </div>
-      <p class="job-apply-dialog__note">Откроется создание письма с адресатом и темой выбранной вакансии, если почтовый сервис поддерживает автозаполнение. После входа в почту проверьте оба поля, прикрепите резюме и нажмите «Отправить». Если поля не заполнились, воспользуйтесь кнопками «Копировать» выше.</p>
-      <a id="job-apply-native-mail" class="job-apply-dialog__native" href="mailto:4212304960@mail.ru">У меня настроено почтовое приложение</a>
+      <p class="job-apply-dialog__note">Адрес школы и тема вакансии будут переданы в выбранный почтовый сервис. Прикрепите резюме и отправьте письмо.</p>
       <a class="job-apply-dialog__phone" href="tel:+74212304960">Позвонить в отдел кадров: +7 (4212) 30-49-60</a>
-      <p id="job-apply-feedback" class="job-apply-dialog__feedback" role="status" aria-live="polite"></p>
     </section>
   </div>
 
-  <script src="script.js?v=job-webmail-prefill-20261116-3"></script>
+  <script src="script.js?v=job-yandex-simple-20261116-4"></script>
 </body>
 </html>
