@@ -121,6 +121,68 @@ if(appealButton){
     // Outside MAX, the standard anchor opens the form in a new tab.
   });
 }
+// Mailto links may be ignored by the MAX webview. Offer an on-screen, actionable fallback.
+const jobApplyDialog=document.getElementById('job-apply-dialog');
+let previousJobFocus=null;
+function closeJobApplyDialog(){
+  if(!jobApplyDialog||jobApplyDialog.hidden)return;
+  jobApplyDialog.hidden=true;
+  document.body.classList.remove('job-apply-open');
+  document.getElementById('job-apply-feedback').textContent='';
+  if(previousJobFocus?.isConnected)previousJobFocus.focus();
+  previousJobFocus=null;
+}
+function openJobApplyDialog(link){
+  if(!jobApplyDialog)return;
+  previousJobFocus=document.activeElement;
+  const title=link.dataset.jobTitle||link.closest('.job-card')?.querySelector('h3')?.textContent.trim()||'Вакансия школы';
+  const mailLink=link.getAttribute('href')||'mailto:4212304960@mail.ru';
+  const query=mailLink.includes('?')?mailLink.slice(mailLink.indexOf('?')+1):'';
+  const subject=new URLSearchParams(query).get('subject')||('Резюме — '+title);
+  document.getElementById('job-apply-position').textContent=title;
+  document.getElementById('job-apply-address').value='4212304960@mail.ru';
+  document.getElementById('job-apply-subject').value=subject;
+  document.getElementById('job-apply-open-mail').href=mailLink;
+  document.getElementById('job-apply-feedback').textContent='';
+  jobApplyDialog.hidden=false;
+  document.body.classList.add('job-apply-open');
+  document.getElementById('job-apply-close').focus();
+}
+async function copyJobApplyValue(kind){
+  const field=document.getElementById(kind==='email'?'job-apply-address':'job-apply-subject');
+  if(!field)return;
+  let copied=false;
+  try{
+    if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(field.value);copied=true;}
+  }catch(error){}
+  if(!copied){
+    field.focus();field.select();
+    try{copied=document.execCommand('copy');}catch(error){}
+  }
+  document.getElementById('job-apply-feedback').textContent=copied?'Скопировано. Можно вставить в письмо.':'Выделено — скопируйте текст вручную.';
+}
+document.addEventListener('click',event=>{
+  const trigger=event.target.closest('[data-job-apply]');
+  if(trigger){
+    if(!jobApplyDialog)return;
+    event.preventDefault();
+    openJobApplyDialog(trigger);
+    return;
+  }
+  if(event.target.closest('[data-close-job-apply]')){closeJobApplyDialog();return;}
+  const copyButton=event.target.closest('[data-copy-job]');
+  if(copyButton)copyJobApplyValue(copyButton.dataset.copyJob);
+});
+document.addEventListener('keydown',event=>{
+  if(!jobApplyDialog||jobApplyDialog.hidden)return;
+  if(event.key==='Escape'){event.preventDefault();closeJobApplyDialog();return;}
+  if(event.key==='Tab'){
+    const controls=[...jobApplyDialog.querySelectorAll('button,a,input')].filter(el=>!el.disabled&&el.getClientRects().length>0);
+    const index=controls.indexOf(document.activeElement);
+    if(event.shiftKey&&index<=0){event.preventDefault();controls[controls.length-1]?.focus();}
+    else if(!event.shiftKey&&index===controls.length-1){event.preventDefault();controls[0]?.focus();}
+  }
+});
 const winterPreferenceKey='max-sportschool-winter-theme';
 let winterEnabled=false;
 function createSnowflakes(){
