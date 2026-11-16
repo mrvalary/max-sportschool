@@ -8,7 +8,7 @@
   <meta name="description" content="Мини-приложение Хабаровской краевой спортивно-адаптивной школы для MAX" />
   <title>ХКСАШПСР — MAX Mini App</title>
   <link rel="preconnect" href="https://kski.ru" />
-  <link rel="stylesheet" href="styles.css?v=job-apply-20261116-1" />
+  <link rel="stylesheet" href="styles.css?v=job-webmail-20261116-2" />
   <style id="no-menu-ice-stripes">
     /* Inline fallback for cached stylesheets inside MAX WebView. */
     .menu-card::before,
@@ -405,13 +405,19 @@
         <input id="job-apply-subject" type="text" readonly />
         <button type="button" data-copy-job="subject">Копировать</button>
       </div>
-      <a id="job-apply-open-mail" class="job-apply-dialog__mail" href="mailto:4212304960@mail.ru">Открыть почтовое приложение</a>
-      <p class="job-apply-dialog__note">Если почта не открывается внутри MAX, скопируйте адрес и тему письма, затем отправьте резюме из вашего почтового приложения. Нажатие этой кнопки само по себе не отправляет заявку.</p>
+      <p class="job-apply-dialog__label">Выберите почту для отправки резюме</p>
+      <a id="job-apply-open-mail" class="job-apply-dialog__mail" href="https://e.mail.ru/compose/" target="_blank" rel="noopener noreferrer">✉️ Открыть Mail.ru в браузере ↗</a>
+      <div class="job-apply-dialog__providers">
+        <a id="job-apply-gmail" class="job-apply-dialog__provider" href="https://mail.google.com/mail/?view=cm&amp;to=4212304960%40mail.ru" target="_blank" rel="noopener noreferrer">Gmail ↗</a>
+        <a id="job-apply-outlook" class="job-apply-dialog__provider" href="https://outlook.live.com/mail/0/deeplink/compose?to=4212304960%40mail.ru" target="_blank" rel="noopener noreferrer">Outlook ↗</a>
+      </div>
+      <p class="job-apply-dialog__note">Почта откроется на сайте выбранного сервиса. В Mail.ru скопируйте адрес и тему письма из полей выше. В Gmail и Outlook они подставляются автоматически, если сервис поддерживает эту ссылку. Прикрепите резюме и нажмите «Отправить» в самой почте.</p>
+      <a id="job-apply-native-mail" class="job-apply-dialog__native" href="mailto:4212304960@mail.ru">У меня настроено почтовое приложение</a>
       <a class="job-apply-dialog__phone" href="tel:+74212304960">Позвонить в отдел кадров: +7 (4212) 30-49-60</a>
       <p id="job-apply-feedback" class="job-apply-dialog__feedback" role="status" aria-live="polite"></p>
     </section>
   </div>
 
-  <script src="script.js?v=job-apply-20261116-1"></script>
+  <script src="script.js?v=job-webmail-20261116-2"></script>
 </body>
 </html>
