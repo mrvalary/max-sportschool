@@ -1,0 +1,55 @@
+name: Refresh school sources and publish
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '19 */6 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update_sources.py'
+      - 'data/sources.json'
+      - '.github/workflows/update-sources.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: school-source-update
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install lxml==5.3.2 pdfplumber==0.11.6
+      - name: Refresh sources and preserve validated data
+        run: python scripts/update_sources.py
+      - name: Save updated copies
+        run: |
+          git config user.name 'school-source-updater[bot]'
+          git config user.email 'school-source-updater@users.noreply.github.com'
+          git add data
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh public school sources'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Prepare public site
+        run: |
+          mkdir -p public
+          cp index.html public/
+          cp -r data images assets public/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - name: Publish updated sources
+        id: deployment
+        uses: actions/deploy-pages@v4
