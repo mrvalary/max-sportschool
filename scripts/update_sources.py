@@ -6,6 +6,7 @@ import datetime as dt
 import hashlib
 import html as escape_html
 import io
+import zipfile
 import json
 import re
 import time
@@ -157,6 +158,79 @@ def schedule_file(feed):
         return (max(years or [0]),max(dates or ['']),path)
     return max(choices,key=rank)
 
+
+def extract_veterans_schedule(body, source):
+    """Read DOCX text runs and explicit Word cell merges without OCR."""
+    ns = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
+    attr = '{'+ns['w']+'}'
+    with zipfile.ZipFile(io.BytesIO(body)) as archive:
+        member = archive.getinfo('word/document.xml')
+        if member.file_size > 12_000_000:
+            raise ValueError('DOCX XML is too large')
+        root = etree.fromstring(archive.read(member), etree.XMLParser(resolve_entities=False, no_network=True))
+    def text(el):
+        return clean(' '.join(''.join(p.xpath('.//w:t/text()', namespaces=ns)) for p in ([el] if el.tag == attr+'p' else el.xpath('.//w:p', namespaces=ns))))
+    rows, city = [], ''
+    for node in root.find('w:body', ns):
+        if node.tag == attr+'p':
+            value = text(node)
+            if re.match(r'^(?:г\.|р\s*\.\s*п\s*\.)', value):
+                city = re.sub(r'^(?:г\.|р\s*\.\s*п\s*\.)\s*', '', value)
+                city = re.sub(r'\s*[–—-]\s*', '-', city)
+            continue
+        if node.tag != attr+'tbl': continue
+        inherited = {}
+        weekdays_checked = False
+        for tr in node.findall('w:tr', ns):
+            cells, col = [], 0
+            for cell in tr.findall('w:tc', ns):
+                props = cell.find('w:tcPr', ns)
+                span = props.find('w:gridSpan', ns) if props is not None else None
+                width = int(span.get(attr+'val', '1')) if span is not None else 1
+                merge = props.find('w:vMerge', ns) if props is not None else None
+                value = text(cell)
+                if merge is not None and merge.get(attr+'val') != 'restart':
+                    value = inherited.get(col, '')
+                for _ in range(width):
+                    cells.append(value)
+                    if merge is not None: inherited[col] = value
+                    else: inherited.pop(col, None)
+                    col += 1
+            if len(cells) == 11:
+                day_headers = [re.sub(r'[\s-]', '', t).lower() for t in cells[4:]]
+                if day_headers[0].startswith('понедель'):
+                    expected = ['понедельник','вторник','среда','четверг','пятница','суббота','воскресенье']
+                    if day_headers != expected: raise ValueError('DOCX weekday columns changed')
+                    weekdays_checked = True
+            if len(cells) != 11: continue
+            if not any(re.search(r'\d{1,2}[.:]\d{2}', t) for t in cells[4:]):
+                if weekdays_checked and any(cells[4:]) and all(cells[i] for i in (1,2,3)):
+                    raise ValueError('Unrecognized DOCX schedule times; previous table preserved')
+                continue
+            if not weekdays_checked: raise ValueError('DOCX weekday header missing')
+            if not city or not all(cells[i] for i in (1,2,3)):
+                raise ValueError('Incomplete DOCX schedule identity: '+str((city,cells)))
+            times = cells[4:11]
+            for value in times:
+                if value and not re.search(r'\d{1,2}[.:]\d{2}\s*[-–—]\s*\d{1,2}[.:]\d{2}', value):
+                    raise ValueError('Unrecognized DOCX time cell')
+            rows.append({'city':city,'sport':cells[2],'trainer':cells[3], 'venue':cells[1], 'category':'Участники СВО', 'stage':'', 'times':times})
+    if len(rows) < 5 or len({r['city'] for r in rows}) < 2:
+        raise ValueError('DOCX schedule extraction produced incomplete data')
+    return {'scheduleRows':rows,'scheduleSource':source,'scheduleSourceHash':hashlib.sha256(body).hexdigest(),'scheduleParsedAt':stamp()}
+
+def update_veterans_schedule(feed, old):
+    choices = [f for f in feed['files'] if f.get('format') == 'DOCX' and 'расписан' in (f['title']+unquote(f['url'])).lower()]
+    if not choices: raise ValueError('No veterans schedule DOCX found; previous schedule preserved')
+    selected = max(choices, key=lambda f: unquote(f['url']))
+    body = get(selected['url'])
+    digest = hashlib.sha256(body).hexdigest()
+    if old and old.get('scheduleSourceHash') == digest and old.get('scheduleRows'):
+        feed.update({k:old[k] for k in ('scheduleRows','scheduleSource','scheduleSourceHash','scheduleParsedAt')})
+        feed['scheduleSource'] = selected['url']
+    else:
+        feed.update(extract_veterans_schedule(body, selected['url']))
+
 def save(path,obj):
     path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(obj,ensure_ascii=False,separators=(',',':')),encoding='utf8')
@@ -166,6 +240,7 @@ def update_one(key,url):
     old=json.loads(path.read_text()) if path.exists() else None
     try:
         feed=parse_page(key,url,get(url))
+        if key == 'veteransSchedule': update_veterans_schedule(feed, old)
         feed['checkedAt']=stamp();feed['lastError']=None
         save(path,feed)
         return key,True,None
